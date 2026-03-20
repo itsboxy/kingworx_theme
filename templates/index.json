@@ -110,30 +110,6 @@
         "layout": "featured"
       }
     },
-    "shop-by": {
-      "type": "shop-by",
-      "blocks": {
-        "brand-1": { "type": "brand", "settings": { "name": "KingWorX",   "count": "Own Brand" } },
-        "brand-2": { "type": "brand", "settings": { "name": "Whiteline",  "count": "Suspension" } },
-        "brand-3": { "type": "brand", "settings": { "name": "Turbosmart", "count": "Boost" } },
-        "brand-4": { "type": "brand", "settings": { "name": "Brembo",     "count": "Brakes" } },
-        "brand-5": { "type": "brand", "settings": { "name": "K&N",        "count": "Intake" } },
-        "car-1": { "type": "car", "settings": { "make": "Toyota",  "model": "GR86",    "years": "2022+" } },
-        "car-2": { "type": "car", "settings": { "make": "Subaru",  "model": "WRX",     "years": "2015+" } },
-        "car-3": { "type": "car", "settings": { "make": "Nissan",  "model": "370Z",    "years": "2009+" } },
-        "car-4": { "type": "car", "settings": { "make": "Honda",   "model": "Civic",   "years": "2017+" } },
-        "car-5": { "type": "car", "settings": { "make": "Mazda",   "model": "MX-5",    "years": "2016+" } },
-        "car-6": { "type": "car", "settings": { "make": "Ford",    "model": "Mustang", "years": "2015+" } },
-        "cat-1": { "type": "category_item", "settings": { "name": "Aero Kits",   "icon": "aero",       "count": "Underbody" } },
-        "cat-2": { "type": "category_item", "settings": { "name": "Performance", "icon": "engine",     "count": "Engine Bay" } },
-        "cat-3": { "type": "category_item", "settings": { "name": "Suspension",  "icon": "suspension", "count": "Handling" } },
-        "cat-4": { "type": "category_item", "settings": { "name": "Exhaust",     "icon": "exhaust",    "count": "Sound & Flow" } },
-        "cat-5": { "type": "category_item", "settings": { "name": "Brakes",      "icon": "brakes",     "count": "Stopping Power" } },
-        "cat-6": { "type": "category_item", "settings": { "name": "Exterior",    "icon": "exterior",   "count": "Look & Feel" } }
-      },
-      "blocks_order": ["brand-1","brand-2","brand-3","brand-4","brand-5","car-1","car-2","car-3","car-4","car-5","car-6","cat-1","cat-2","cat-3","cat-4","cat-5","cat-6"],
-      "settings": { "heading": "Shop Your Way" }
-    },
     "featured-products": {
       "type": "featured-products",
       "settings": {
@@ -158,7 +134,6 @@
     "announcement",
     "hero",
     "brand-strip",
-    "shop-by",
     "categories",
     "featured-products",
     "newsletter"

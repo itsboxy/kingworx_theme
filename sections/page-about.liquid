@@ -335,7 +335,7 @@
   .about-section {
     max-width: var(--page-width);
     margin: 0 auto;
-    padding: var(--spacing-2xl) var(--page-margin);
+    padding: 3.5rem var(--page-margin);
   }
   .section-eyebrow {
     font-size: 0.7rem;
@@ -394,20 +394,21 @@
     gap: 1.5rem;
   }
   .about-stat {
-    background: linear-gradient(135deg, #0f0f0f, #1a0000);
-    border: 1px solid rgba(198,0,0,0.25);
+    background: #ffffff;
+    border: 1px solid #e8e8e8;
     border-left: 3px solid var(--color-brand);
     border-radius: 4px;
     padding: 1.25rem 1.5rem;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   }
   .about-stat::before {
     content: '';
     position: absolute;
     top: 0; right: 0; bottom: 0;
     width: 40%;
-    background: radial-gradient(ellipse at right, rgba(198,0,0,0.06), transparent);
+    background: radial-gradient(ellipse at right, rgba(198,0,0,0.04), transparent);
   }
   .about-stat__num {
     display: block;
@@ -424,7 +425,7 @@
   }
   .about-stat__label {
     font-size: 0.78rem;
-    color: rgba(255,255,255,0.55);
+    color: #666666;
     letter-spacing: 0.05em;
   }
 
@@ -644,8 +645,9 @@
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
-    background: linear-gradient(135deg, #0f0f0f, #0a0000);
-    border: 1px solid rgba(198,0,0,0.15);
+    background: #111111;
+    border: 1px solid rgba(198,0,0,0.2);
+    border-top: 3px solid var(--color-brand);
     border-radius: 8px;
     padding: 3rem 2rem;
     position: relative;
@@ -657,7 +659,7 @@
     inset: 0;
     background: repeating-linear-gradient(
       -65deg, transparent 0, transparent 30px,
-      rgba(198,0,0,0.03) 30px, rgba(198,0,0,0.03) 31px
+      rgba(198,0,0,0.04) 30px, rgba(198,0,0,0.04) 31px
     );
   }
   .about-global__node {
