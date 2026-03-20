@@ -8,5 +8,27 @@
  * ------------------------------------------------------------
  */
 {
-  "current": {}
+  "current": {
+    "color_brand": "#c60000",
+    "color_brand_hover": "#a50000",
+    "background_color": "#ffffff",
+    "color_surface": "#f5f5f5",
+    "color_surface_2": "#ebebeb",
+    "foreground_color": "#111111",
+    "color_muted": "#666666",
+    "color_border": "#e0e0e0",
+    "max_page_width": "90rem",
+    "min_page_margin": 20,
+    "input_corner_radius": 2,
+    "card_corner_radius": 6,
+    "logo_width": 200,
+    "header_sticky": true,
+    "announcement_bar_enabled": true,
+    "announcement_text": "FREE SHIPPING ON ORDERS OVER $150 | ENGINEERED IN AUSTRALIA, BUILT FOR PERFORMANCE",
+    "cart_type": "drawer",
+    "cart_show_note": true,
+    "footer_tagline": "Engineering-driven performance parts for the serious driver.",
+    "show_payment_icons": true,
+    "font_body_size": 16
+  }
 }

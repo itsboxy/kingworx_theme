@@ -1,36 +1,141 @@
 <!doctype html>
 <html lang="{{ request.locale.iso_code }}">
   <head>
-    {% # Inlined CSS Variables %}
     {% render 'css-variables' %}
 
-    {% comment %}
-      Font preloading:
-      1. Preconnect to font CDN for faster connection
-      2. Preload only the critical font variant (base weight)
-      3. Additional variants load on-demand via @font-face
-    {% endcomment %}
+    {% comment %} Google Fonts — Barlow Condensed (headings) + Barlow (body) {% endcomment %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;1,700&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+      rel="stylesheet"
+    >
+
     {% unless settings.type_primary_font.system? %}
       <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
-
-      {% comment %} Preload the base font variant for initial page render {% endcomment %}
       {{ settings.type_primary_font | font_url | preload_tag: as: 'font', crossorigin: 'anonymous' }}
     {% endunless %}
 
-    {% # Load and preload the critical CSS %}
+    {% comment %} Critical CSS {% endcomment %}
     {{ 'critical.css' | asset_url | stylesheet_tag: preload: true }}
 
-    {% # Social, title, etc. %}
+    {% comment %} Main theme CSS {% endcomment %}
+    {{ 'theme.css' | asset_url | stylesheet_tag }}
+
     {% render 'meta-tags' %}
 
     {{ content_for_header }}
   </head>
 
   <body>
+    {% comment %} Cart Drawer Overlay {% endcomment %}
+    <div
+      id="cart-overlay"
+      class="drawer-overlay"
+      onclick="document.getElementById('cart-drawer').classList.remove('is-open'); document.getElementById('mobile-nav').classList.remove('is-open'); this.classList.remove('is-open');"
+      aria-hidden="true"
+    ></div>
+
+    {% comment %} Cart Drawer {% endcomment %}
+    <div id="cart-drawer" class="drawer" role="dialog" aria-modal="true" aria-label="Cart" hidden>
+      <div class="drawer__header">
+        <h2 class="drawer__title">Cart ({{ cart.item_count }})</h2>
+        <button
+          class="drawer__close"
+          onclick="document.getElementById('cart-drawer').classList.remove('is-open'); document.getElementById('cart-overlay').classList.remove('is-open');"
+          aria-label="Close cart"
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="drawer__body" id="cart-drawer-body">
+        {% if cart.item_count > 0 %}
+          {% for item in cart.items %}
+            <div class="cart-item">
+              <div class="cart-item__image">
+                {% if item.image %}
+                  <img
+                    src="{{ item.image | image_url: width: 160 }}"
+                    alt="{{ item.image.alt | default: item.title | escape }}"
+                    loading="lazy"
+                    width="80"
+                    height="80"
+                  >
+                {% endif %}
+              </div>
+              <div>
+                <p class="cart-item__title">{{ item.product.title }}</p>
+                {% unless item.product.has_only_default_variant %}
+                  <p class="cart-item__variant">{{ item.variant.title }}</p>
+                {% endunless %}
+                <p class="cart-item__variant">Qty: {{ item.quantity }}</p>
+                <button class="cart-item__remove" onclick="removeCartItem('{{ item.key }}')">Remove</button>
+              </div>
+              <div class="cart-item__price">{{ item.final_line_price | money }}</div>
+            </div>
+          {% endfor %}
+        {% else %}
+          <div style="text-align:center; padding: 3rem 1rem; color: var(--color-muted);">
+            <p>Your cart is empty.</p>
+          </div>
+        {% endif %}
+      </div>
+      <div class="drawer__footer">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; font-family:var(--font-heading--family); font-weight:700; font-size:1rem;">
+          <span>TOTAL</span>
+          <span>{{ cart.total_price | money }}</span>
+        </div>
+        <a href="/checkout" class="btn btn--primary btn--full btn--large" style="margin-bottom:0.5rem;">
+          Checkout
+        </a>
+        <a href="{{ routes.cart_url }}" class="btn btn--secondary btn--full">
+          View Cart
+        </a>
+      </div>
+    </div>
+
     {% sections 'header-group' %}
 
-    {{ content_for_layout }}
+    <main id="MainContent" role="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
 
     {% sections 'footer-group' %}
+
+    {% comment %} Skip to content link (accessibility) {% endcomment %}
+    <a href="#MainContent" class="skip-to-content">Skip to content</a>
   </body>
 </html>
+
+<style>
+  .skip-to-content {
+    position: absolute;
+    top: -100%;
+    left: 1rem;
+    z-index: 9999;
+    background: var(--color-brand);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    font-family: var(--font-heading--family);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-radius: 0 0 4px 4px;
+    transition: top var(--transition-fast);
+  }
+
+  .skip-to-content:focus {
+    top: 0;
+  }
+
+  /* Fix hidden drawer */
+  .drawer[hidden] {
+    display: flex !important;
+    pointer-events: none;
+  }
+
+  .drawer.is-open {
+    pointer-events: all;
+  }
+</style>

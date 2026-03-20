@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "shipping": {
+      "type": "page-shipping",
+      "settings": {}
+    }
+  },
+  "order": ["shipping"]
+}

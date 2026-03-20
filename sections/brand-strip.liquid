@@ -1,0 +1,182 @@
+<section class="brand-strip full-width">
+  <div class="brand-strip__inner">
+    {% for block in section.blocks %}
+      <div class="brand-strip__item" {{ block.shopify_attributes }}>
+        <div class="brand-strip__icon" aria-hidden="true">
+          {% case block.settings.icon %}
+            {% when 'performance' %}
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            {% when 'precision' %}
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/></svg>
+            {% when 'affordability' %}
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            {% when 'fitment' %}
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+            {% when 'shipping' %}
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            {% when 'australia' %}
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          {% endcase %}
+        </div>
+        <div class="brand-strip__text">
+          <span class="brand-strip__label">{{ block.settings.label }}</span>
+          {% if block.settings.sublabel != blank %}
+            <span class="brand-strip__sublabel">{{ block.settings.sublabel }}</span>
+          {% endif %}
+        </div>
+      </div>
+
+      {% unless forloop.last %}
+        <div class="brand-strip__divider" aria-hidden="true"></div>
+      {% endunless %}
+    {% endfor %}
+  </div>
+</section>
+
+{% stylesheet %}
+  .brand-strip {
+    background:
+      linear-gradient(135deg, #0f0a0a 0%, #110000 40%, #0f0a0a 100%);
+    border-top: 1px solid rgba(198,0,0,0.25);
+    border-bottom: 1px solid rgba(198,0,0,0.25);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .brand-strip::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 50%, rgba(198,0,0,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .brand-strip__inner {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0;
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: 0 var(--page-margin);
+    position: relative;
+    z-index: 1;
+  }
+
+  .brand-strip__item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.75rem 2.5rem;
+    flex: 1;
+    min-width: 180px;
+    transition: background var(--transition-base);
+    position: relative;
+  }
+  .brand-strip__item:hover {
+    background: rgba(198,0,0,0.06);
+  }
+
+  .brand-strip__icon {
+    color: var(--color-brand);
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 8px rgba(198,0,0,0.5));
+    transition: filter var(--transition-base), transform var(--transition-base);
+  }
+  .brand-strip__item:hover .brand-strip__icon {
+    filter: drop-shadow(0 0 14px rgba(198,0,0,0.8));
+    transform: scale(1.15);
+  }
+
+  .brand-strip__text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .brand-strip__label {
+    font-family: var(--font-heading--family);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-foreground);
+    white-space: nowrap;
+  }
+
+  .brand-strip__sublabel {
+    font-size: 0.72rem;
+    color: var(--color-muted);
+    letter-spacing: 0.02em;
+  }
+
+  .brand-strip__divider {
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(198,0,0,0.3) 50%, transparent);
+    align-self: stretch;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 900px) {
+    .brand-strip__item { padding: 1.25rem 1.5rem; min-width: 140px; }
+    .brand-strip__divider { display: none; }
+  }
+  @media (max-width: 500px) {
+    .brand-strip__item { min-width: 45%; padding: 1rem; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Brand Strip",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "performance", "label": "Performance" },
+            { "value": "precision", "label": "Precision" },
+            { "value": "affordability", "label": "Affordability" },
+            { "value": "fitment", "label": "Fitment" },
+            { "value": "shipping", "label": "Shipping" },
+            { "value": "australia", "label": "Australia" }
+          ],
+          "default": "performance"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "High Performance"
+        },
+        {
+          "type": "text",
+          "id": "sublabel",
+          "label": "Sub-label",
+          "default": "Track-tested components"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "presets": [
+    {
+      "name": "Brand Strip",
+      "category": "Promotional",
+      "blocks": [
+        { "type": "feature", "settings": { "icon": "performance", "label": "High Performance", "sublabel": "Track-tested components" } },
+        { "type": "feature", "settings": { "icon": "precision", "label": "Precision Fitment", "sublabel": "CAD-engineered accuracy" } },
+        { "type": "feature", "settings": { "icon": "affordability", "label": "Affordable Pricing", "sublabel": "Factory-direct savings" } },
+        { "type": "feature", "settings": { "icon": "shipping", "label": "Fast Shipping", "sublabel": "Australia-wide delivery" } },
+        { "type": "feature", "settings": { "icon": "australia", "label": "Aus Designed", "sublabel": "Built for Aussie roads" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

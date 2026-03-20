@@ -9,12 +9,13 @@
  */
 {
   "type": "footer",
-  "name": "t:general.footer",
+  "name": "Footer",
   "sections": {
     "footer": {
       "type": "footer",
       "settings": {
-        "menu": "",
+        "menu_1_title": "Shop",
+        "menu_2_title": "Support",
         "show_payment_icons": true
       }
     }

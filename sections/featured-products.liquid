@@ -1,0 +1,194 @@
+<section class="featured-products section-padding">
+  <div class="featured-products__inner">
+    <div class="section-header">
+      <div>
+        {% if section.settings.eyebrow != blank %}
+          <p class="section-header__eyebrow">{{ section.settings.eyebrow }}</p>
+        {% endif %}
+        <h2 class="section-header__title">{{ section.settings.heading }}</h2>
+      </div>
+      {% if section.settings.view_all_label != blank and section.settings.view_all_url != blank %}
+        <a href="{{ section.settings.view_all_url }}" class="section-header__link">
+          {{ section.settings.view_all_label }} &rarr;
+        </a>
+      {% endif %}
+    </div>
+
+    {% comment %} Try the picker collection first, then fallback to 'all' {% endcomment %}
+    {% assign fp_collection = section.settings.collection %}
+    {% if fp_collection == blank %}
+      {% assign fp_collection = collections['all'] %}
+    {% endif %}
+
+    {% if fp_collection != blank and fp_collection.products.size > 0 %}
+      <div class="product-grid">
+        {% for product in fp_collection.products limit: section.settings.products_to_show %}
+          {% render 'product-card', product: product %}
+        {% endfor %}
+      </div>
+    {% else %}
+      {%- comment -%} Placeholder cards with proper light-theme styling {%- endcomment -%}
+      <div class="product-grid">
+        {% for i in (1..4) %}
+          <div class="product-card product-card--placeholder">
+            <div class="product-card__media">
+              <div class="product-card__placeholder-img" aria-hidden="true">
+                <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="300" height="300" fill="#f0f0f0"/>
+                  <!-- Diagonal slash motif -->
+                  <path d="M0 300 L300 0" stroke="#e0e0e0" stroke-width="1.5"/>
+                  <path d="M0 200 L200 0" stroke="#e0e0e0" stroke-width="1"/>
+                  <path d="M100 300 L300 100" stroke="#e0e0e0" stroke-width="1"/>
+                  <!-- Part icon placeholder -->
+                  <rect x="90" y="100" width="120" height="80" rx="6" fill="#e5e5e5"/>
+                  <rect x="110" y="120" width="30" height="20" rx="3" fill="#d0d0d0"/>
+                  <rect x="160" y="120" width="30" height="20" rx="3" fill="#d0d0d0"/>
+                  <rect x="90" y="190" width="40" height="10" rx="3" fill="#d0d0d0"/>
+                  <rect x="170" y="190" width="40" height="10" rx="3" fill="#d0d0d0"/>
+                  <!-- KingWorX red accent -->
+                  <rect x="0" y="0" width="300" height="3" fill="#c60000"/>
+                </svg>
+              </div>
+            </div>
+            <div class="product-card__info">
+              <p class="product-card__brand">KingWorX</p>
+              <p class="product-card__title product-card__placeholder-title">Performance Part</p>
+              <div class="product-card__price">
+                <span class="product-card__price-current product-card__placeholder-price">—</span>
+              </div>
+            </div>
+            <div class="product-card__placeholder-badge">Add products in Shopify Admin</div>
+          </div>
+        {% endfor %}
+      </div>
+      <p class="featured-products__admin-hint">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        To show real products: go to <strong>Shopify Admin → Online Store → Customize</strong> and select a collection in the Featured Products section settings.
+      </p>
+    {% endif %}
+  </div>
+</section>
+
+{% stylesheet %}
+  .featured-products {
+    position: relative;
+  }
+  .featured-products__inner {
+    padding: var(--spacing-2xl) var(--page-margin);
+    max-width: var(--page-width);
+    margin: 0 auto;
+  }
+  .featured-products::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%; transform: translateX(-50%);
+    width: 6rem; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--color-brand), transparent);
+  }
+
+  /* Placeholder card */
+  .product-card--placeholder {
+    pointer-events: none;
+    opacity: 0.75;
+    position: relative;
+  }
+  .product-card__placeholder-img {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .product-card__placeholder-img svg {
+    width: 100%;
+    height: 100%;
+  }
+  .product-card__placeholder-title,
+  .product-card__placeholder-price {
+    background: var(--color-surface-2);
+    color: transparent;
+    border-radius: 3px;
+    user-select: none;
+  }
+  .product-card__placeholder-badge {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(198,0,0,0.9);
+    color: #fff;
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+    text-align: center;
+    padding: 0.3rem;
+    display: none; /* only show in admin preview */
+  }
+
+  /* Admin hint (not visible to customers) */
+  .featured-products__admin-hint {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--color-muted);
+    background: var(--color-surface);
+    border: 1px dashed var(--color-border);
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+    margin-top: 1.5rem;
+  }
+  .featured-products__admin-hint svg {
+    flex-shrink: 0;
+    color: var(--color-brand);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Featured Products",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Top Picks"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Featured Parts"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection",
+      "info": "Select a collection to display. If none is selected, products from your 'All' collection are shown automatically."
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "label": "Products to show",
+      "default": 4
+    },
+    {
+      "type": "text",
+      "id": "view_all_label",
+      "label": "View all label",
+      "default": "View All Products"
+    },
+    {
+      "type": "url",
+      "id": "view_all_url",
+      "label": "View all link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Products",
+      "category": "Products"
+    }
+  ]
+}
+{% endschema %}

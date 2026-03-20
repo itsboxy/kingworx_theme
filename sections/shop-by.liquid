@@ -1,0 +1,657 @@
+<section class="shop-by full-width">
+  <div class="shop-by__inner">
+
+    <!-- Section header -->
+    <div class="shop-by__heading-row">
+      <p class="section-header__eyebrow">Find Your Parts</p>
+      <h2 class="shop-by__title">{{ section.settings.heading }}</h2>
+    </div>
+
+    <!-- Three panels -->
+    <div class="shop-by__panels">
+
+      <!-- === BRAND PANEL === -->
+      <div class="shop-by__panel">
+        <div class="shop-by__panel-header">
+          <span class="shop-by__panel-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+          </span>
+          <div>
+            <p class="shop-by__panel-eyebrow">Filter by</p>
+            <h3 class="shop-by__panel-title">Shop by Brand</h3>
+          </div>
+        </div>
+
+        <ul class="shop-by__list">
+          {% for block in section.blocks %}
+            {% if block.type == 'brand' %}
+              <li class="shop-by__list-item" {{ block.shopify_attributes }}>
+                <a href="{{ block.settings.link | default: '/collections/all' }}" class="shop-by__list-link">
+                  {% if block.settings.logo %}
+                    <span class="shop-by__brand-logo">
+                      <img src="{{ block.settings.logo | image_url: width: 120 }}" alt="{{ block.settings.name }}" loading="lazy" width="60" height="30">
+                    </span>
+                  {% else %}
+                    <span class="shop-by__list-dot" aria-hidden="true"></span>
+                  {% endif %}
+                  <span class="shop-by__list-name">{{ block.settings.name }}</span>
+                  {% if block.settings.count != blank %}
+                    <span class="shop-by__list-count">{{ block.settings.count }}</span>
+                  {% endif %}
+                  <svg class="shop-by__list-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+
+        {% if section.settings.brand_view_all != blank %}
+          <a href="{{ section.settings.brand_view_all }}" class="shop-by__view-all">
+            View All Brands
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        {% endif %}
+      </div>
+
+      <!-- Divider -->
+      <div class="shop-by__divider" aria-hidden="true"></div>
+
+      <!-- === CAR PANEL === -->
+      <div class="shop-by__panel">
+        <div class="shop-by__panel-header">
+          <span class="shop-by__panel-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v9a2 2 0 01-2 2h-2"/><circle cx="9" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M3 9h11M9 3v6"/></svg>
+          </span>
+          <div>
+            <p class="shop-by__panel-eyebrow">Filter by</p>
+            <h3 class="shop-by__panel-title">Shop by Car</h3>
+          </div>
+        </div>
+
+        <ul class="shop-by__list">
+          {% for block in section.blocks %}
+            {% if block.type == 'car' %}
+              <li class="shop-by__list-item" {{ block.shopify_attributes }}>
+                <a href="{{ block.settings.link | default: '/collections/all' }}" class="shop-by__list-link">
+                  <span class="shop-by__list-dot" aria-hidden="true"></span>
+                  <span class="shop-by__list-name">
+                    {{ block.settings.make }}
+                    {% if block.settings.model != blank %}
+                      <span class="shop-by__list-model">{{ block.settings.model }}</span>
+                    {% endif %}
+                  </span>
+                  {% if block.settings.years != blank %}
+                    <span class="shop-by__list-count">{{ block.settings.years }}</span>
+                  {% endif %}
+                  <svg class="shop-by__list-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+
+        {% if section.settings.car_view_all != blank %}
+          <a href="{{ section.settings.car_view_all }}" class="shop-by__view-all">
+            View All Makes
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        {% endif %}
+      </div>
+
+      <!-- Divider -->
+      <div class="shop-by__divider" aria-hidden="true"></div>
+
+      <!-- === CATEGORY PANEL === -->
+      <div class="shop-by__panel">
+        <div class="shop-by__panel-header">
+          <span class="shop-by__panel-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          </span>
+          <div>
+            <p class="shop-by__panel-eyebrow">Filter by</p>
+            <h3 class="shop-by__panel-title">Shop by Category</h3>
+          </div>
+        </div>
+
+        <ul class="shop-by__list shop-by__list--categories">
+          {% for block in section.blocks %}
+            {% if block.type == 'category_item' %}
+              <li class="shop-by__list-item shop-by__list-item--category" {{ block.shopify_attributes }}>
+                <a href="{{ block.settings.link | default: '/collections/all' }}" class="shop-by__list-link">
+                  <span class="shop-by__cat-icon" aria-hidden="true">
+                    {% case block.settings.icon %}
+                      {% when 'aero' %}
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                      {% when 'engine' %}
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                      {% when 'suspension' %}
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                      {% when 'exhaust' %}
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18M3 6h6M3 18h6"/></svg>
+                      {% when 'brakes' %}
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>
+                      {% when 'exterior' %}
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                      {% else %}
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>
+                    {% endcase %}
+                  </span>
+                  <span class="shop-by__list-name">{{ block.settings.name }}</span>
+                  {% if block.settings.count != blank %}
+                    <span class="shop-by__list-count">{{ block.settings.count }}</span>
+                  {% endif %}
+                  <svg class="shop-by__list-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+
+        {% if section.settings.category_view_all != blank %}
+          <a href="{{ section.settings.category_view_all }}" class="shop-by__view-all">
+            View All Categories
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .shop-by {
+    background:
+      linear-gradient(180deg, #0a0a0a 0%, #0e0e0e 100%);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Ambient red glow top-right */
+  .shop-by::before {
+    content: '';
+    position: absolute;
+    top: -20%; right: -10%;
+    width: 50%; height: 140%;
+    background: radial-gradient(ellipse at 80% 30%, rgba(198,0,0,0.07) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .shop-by__inner {
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: var(--spacing-2xl) var(--page-margin);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Heading row */
+  .shop-by__heading-row {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .shop-by__heading-row .section-header__eyebrow {
+    justify-content: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .shop-by__title {
+    font-size: clamp(1.8rem, 3.5vw, 3rem);
+    margin: 0;
+  }
+
+  /* Panel grid */
+  .shop-by__panels {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr 1px 1fr;
+    gap: 0;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--style-border-radius-cards);
+    overflow: hidden;
+  }
+
+  .shop-by__divider {
+    background: linear-gradient(to bottom, transparent, var(--color-border) 20%, var(--color-border) 80%, transparent);
+    width: 1px;
+    align-self: stretch;
+  }
+
+  /* Individual panel */
+  .shop-by__panel {
+    padding: 2rem 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+    transition: background var(--transition-base);
+  }
+
+  .shop-by__panel:hover {
+    background: rgba(198,0,0,0.03);
+  }
+
+  /* Panel header */
+  .shop-by__panel-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 1.25rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid var(--color-border);
+    position: relative;
+  }
+
+  .shop-by__panel-header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0;
+    width: 3rem; height: 2px;
+    background: var(--color-brand);
+    transition: width var(--transition-slow);
+  }
+
+  .shop-by__panel:hover .shop-by__panel-header::after {
+    width: 100%;
+  }
+
+  .shop-by__panel-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    background: rgba(198,0,0,0.1);
+    border: 1px solid rgba(198,0,0,0.2);
+    border-radius: 6px;
+    color: var(--color-brand);
+    flex-shrink: 0;
+    transition: all var(--transition-base);
+  }
+
+  .shop-by__panel:hover .shop-by__panel-icon {
+    background: var(--color-brand);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(198,0,0,0.4);
+  }
+
+  .shop-by__panel-eyebrow {
+    font-family: var(--font-heading--family);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    margin: 0;
+    line-height: 1;
+  }
+
+  .shop-by__panel-title {
+    font-family: var(--font-heading--family);
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-foreground);
+    margin: 0.2rem 0 0;
+    line-height: 1;
+  }
+
+  /* List */
+  .shop-by__list {
+    list-style: none;
+    padding: 0; margin: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .shop-by__list-item {
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .shop-by__list-item:last-child { border-bottom: none; }
+
+  .shop-by__list-link {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.65rem 0.5rem;
+    border-radius: 4px;
+    color: var(--color-muted);
+    font-size: 0.875rem;
+    transition: all var(--transition-fast);
+    text-decoration: none;
+    position: relative;
+  }
+
+  .shop-by__list-link:hover {
+    color: var(--color-foreground);
+    background: rgba(255,255,255,0.04);
+    padding-left: 0.85rem;
+  }
+
+  .shop-by__list-dot {
+    display: inline-block;
+    width: 5px; height: 5px;
+    background: var(--color-border);
+    border-radius: 50%;
+    flex-shrink: 0;
+    transition: background var(--transition-fast), transform var(--transition-fast);
+  }
+
+  .shop-by__list-link:hover .shop-by__list-dot {
+    background: var(--color-brand);
+    transform: scale(1.5);
+  }
+
+  .shop-by__list-name {
+    flex: 1;
+    font-family: var(--font-heading--family);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .shop-by__list-model {
+    font-weight: 400;
+    color: var(--color-muted);
+    text-transform: none;
+    font-family: var(--font-body--family);
+    font-size: 0.8rem;
+    letter-spacing: 0;
+  }
+
+  .shop-by__list-count {
+    font-size: 0.68rem;
+    font-family: var(--font-heading--family);
+    letter-spacing: 0.05em;
+    color: var(--color-muted);
+    background: rgba(255,255,255,0.06);
+    padding: 0.15rem 0.45rem;
+    border-radius: 2px;
+    white-space: nowrap;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  .shop-by__list-arrow {
+    color: var(--color-border);
+    flex-shrink: 0;
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: all var(--transition-fast);
+  }
+
+  .shop-by__list-link:hover .shop-by__list-arrow {
+    opacity: 1;
+    color: var(--color-brand);
+    transform: translateX(0);
+  }
+
+  /* Brand logo */
+  .shop-by__brand-logo {
+    display: inline-flex;
+    align-items: center;
+    width: 48px;
+    flex-shrink: 0;
+  }
+
+  .shop-by__brand-logo img {
+    max-height: 22px;
+    width: auto;
+    object-fit: contain;
+    filter: brightness(0) invert(0.6);
+    transition: filter var(--transition-fast);
+  }
+
+  .shop-by__list-link:hover .shop-by__brand-logo img {
+    filter: brightness(0) invert(1);
+  }
+
+  /* Category icon */
+  .shop-by__cat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--color-brand);
+    flex-shrink: 0;
+    opacity: 0.7;
+    transition: opacity var(--transition-fast);
+  }
+
+  .shop-by__list-link:hover .shop-by__cat-icon { opacity: 1; }
+
+  /* Category list layout */
+  .shop-by__list--categories .shop-by__list-link {
+    gap: 0.75rem;
+  }
+
+  /* View All */
+  .shop-by__view-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+    padding: 0.6rem 1rem;
+    font-family: var(--font-heading--family);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-brand);
+    border: 1px solid rgba(198,0,0,0.3);
+    border-radius: var(--style-border-radius-inputs);
+    transition: all var(--transition-fast);
+    width: 100%;
+    justify-content: center;
+    background: rgba(198,0,0,0.05);
+  }
+
+  .shop-by__view-all:hover {
+    background: var(--color-brand);
+    border-color: var(--color-brand);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(198,0,0,0.35);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .shop-by__panels {
+      grid-template-columns: 1fr 1px 1fr;
+    }
+
+    /* Hide category panel divider + panel on medium screens, show as row below */
+    .shop-by__divider:last-of-type { display: none; }
+    .shop-by__panel:last-child {
+      grid-column: 1 / -1;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .shop-by__list--categories {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 680px) {
+    .shop-by__panels {
+      grid-template-columns: 1fr;
+    }
+
+    .shop-by__divider { display: none; }
+
+    .shop-by__panel:not(:first-child) {
+      border-top: 1px solid var(--color-border);
+      grid-column: 1;
+    }
+
+    .shop-by__list--categories {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Shop By",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop Your Way"
+    },
+    {
+      "type": "header",
+      "content": "View All Links"
+    },
+    {
+      "type": "url",
+      "id": "brand_view_all",
+      "label": "View All Brands link"
+    },
+    {
+      "type": "url",
+      "id": "car_view_all",
+      "label": "View All Cars link"
+    },
+    {
+      "type": "url",
+      "id": "category_view_all",
+      "label": "View All Categories link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "brand",
+      "name": "Brand",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Brand name",
+          "default": "KingWorX"
+        },
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Brand logo"
+        },
+        {
+          "type": "text",
+          "id": "count",
+          "label": "Product count",
+          "default": "12 parts"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link to brand collection"
+        }
+      ]
+    },
+    {
+      "type": "car",
+      "name": "Car",
+      "settings": [
+        {
+          "type": "text",
+          "id": "make",
+          "label": "Make",
+          "default": "Toyota"
+        },
+        {
+          "type": "text",
+          "id": "model",
+          "label": "Model (optional)",
+          "default": "GR86"
+        },
+        {
+          "type": "text",
+          "id": "years",
+          "label": "Years",
+          "default": "2022+"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link to fitment collection"
+        }
+      ]
+    },
+    {
+      "type": "category_item",
+      "name": "Category",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Category name",
+          "default": "Aero Kits"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "aero",       "label": "Aero / Layers" },
+            { "value": "engine",     "label": "Engine / Power" },
+            { "value": "suspension", "label": "Suspension / Clock" },
+            { "value": "exhaust",    "label": "Exhaust / Lines" },
+            { "value": "brakes",     "label": "Brakes / Circle" },
+            { "value": "exterior",   "label": "Exterior / Star" }
+          ],
+          "default": "aero"
+        },
+        {
+          "type": "text",
+          "id": "count",
+          "label": "Product count",
+          "default": "8 products"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link to collection"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop By",
+      "category": "Navigation",
+      "blocks": [
+        { "type": "brand", "settings": { "name": "KingWorX",   "count": "Own brand" } },
+        { "type": "brand", "settings": { "name": "Whiteline",  "count": "Suspension" } },
+        { "type": "brand", "settings": { "name": "Turbosmart", "count": "Boost" } },
+        { "type": "brand", "settings": { "name": "Brembo",     "count": "Brakes" } },
+        { "type": "brand", "settings": { "name": "K&N",        "count": "Intake" } },
+        { "type": "car", "settings": { "make": "Toyota",  "model": "GR86",    "years": "2022+" } },
+        { "type": "car", "settings": { "make": "Subaru",  "model": "WRX",     "years": "2015+" } },
+        { "type": "car", "settings": { "make": "Nissan",  "model": "370Z",    "years": "2009+" } },
+        { "type": "car", "settings": { "make": "Honda",   "model": "Civic",   "years": "2017+" } },
+        { "type": "car", "settings": { "make": "Mazda",   "model": "MX-5",    "years": "2016+" } },
+        { "type": "car", "settings": { "make": "Ford",    "model": "Mustang", "years": "2015+" } },
+        { "type": "category_item", "settings": { "name": "Aero Kits",    "icon": "aero",       "count": "Underbody" } },
+        { "type": "category_item", "settings": { "name": "Performance",  "icon": "engine",     "count": "Engine Bay" } },
+        { "type": "category_item", "settings": { "name": "Suspension",   "icon": "suspension", "count": "Handling" } },
+        { "type": "category_item", "settings": { "name": "Exhaust",      "icon": "exhaust",    "count": "Sound & Flow" } },
+        { "type": "category_item", "settings": { "name": "Brakes",       "icon": "brakes",     "count": "Stopping Power" } },
+        { "type": "category_item", "settings": { "name": "Exterior",     "icon": "exterior",   "count": "Look & Feel" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,75 +1,854 @@
-<header>
-  <h2 class="header__title">
-    {{ shop.name | link_to: routes.root_url }}
-  </h2>
+{% comment %} KingWorX Header v2.0.0 — Mega Menu {% endcomment %}
 
-  <div class="header__menu">
-    {% for link in section.settings.menu.links %}
-      {{ link.title | link_to: link.url }}
-    {% endfor %}
-  </div>
+<header class="site-header full-width {% if settings.header_sticky %}site-header--sticky{% endif %}" role="banner">
+  <div class="site-header__inner">
 
-  <div class="header__icons">
-    {% if shop.customer_accounts_enabled %}
-      <shopify-account menu="{{ section.settings.customer_account_menu }}">
-        {{ 'icon-account.svg' | inline_asset_content }}
-      </shopify-account>
-    {% endif %}
+    <!-- Logo -->
+    <a href="{{ routes.root_url }}" class="site-header__logo" aria-label="{{ shop.name }} - Home">
+      {% if settings.logo %}
+        <img
+          src="{{ settings.logo | image_url: width: 400 }}"
+          alt="{{ shop.name }}"
+          width="{{ settings.logo_width }}"
+          loading="eager"
+          class="site-header__logo-img"
+        >
+      {% else %}
+        <img
+          src="{{ 'kingworxlogo.png' | asset_url }}"
+          alt="{{ shop.name }}"
+          width="{{ settings.logo_width }}"
+          loading="eager"
+          class="site-header__logo-img"
+        >
+      {% endif %}
+    </a>
 
-    <a href="{{ routes.cart_url }}">
-      {% if cart.item_count > 0 %}
-        <sup>{{ cart.item_count }}</sup>
+    <!-- Primary Navigation -->
+    <nav class="site-header__nav hide-mobile" role="navigation" aria-label="Main navigation">
+
+      <!-- Regular menu links -->
+      {% for link in section.settings.menu.links %}
+        {% if link.links.size > 0 %}
+          <div class="nav-item nav-item--has-dropdown">
+            <a href="{{ link.url }}" class="nav-item__link {% if link.active %}is-active{% endif %}">
+              {{ link.title }}
+              <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <div class="nav-dropdown">
+              {% for child in link.links %}
+                <a href="{{ child.url }}" class="nav-dropdown__item">{{ child.title }}</a>
+              {% endfor %}
+            </div>
+          </div>
+        {% else %}
+          <div class="nav-item">
+            <a href="{{ link.url }}" class="nav-item__link {% if link.active %}is-active{% endif %}">
+              {{ link.title }}
+            </a>
+          </div>
+        {% endif %}
+      {% endfor %}
+
+      <!-- MEGA MENU — Shop By Brand / Car / Category (always visible) -->
+      <div class="nav-item nav-item--mega" id="mega-menu-trigger">
+        <button class="nav-item__link nav-item__link--btn" aria-expanded="false" aria-controls="mega-menu" type="button">
+          Shop
+          <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+
+    </nav>
+
+    <!-- Header Actions -->
+    <div class="site-header__actions">
+      <button class="header-icon-btn" aria-label="Search" onclick="document.getElementById('search-modal').setAttribute('open', '')">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      </button>
+
+      {% if shop.customer_accounts_enabled %}
+        <shopify-account menu="{{ section.settings.customer_account_menu }}" class="header-icon-btn" aria-label="Account">
+          {{ 'icon-account.svg' | inline_asset_content }}
+        </shopify-account>
       {% endif %}
 
-      {{ 'icon-cart.svg' | inline_asset_content }}
-    </a>
+      <button
+        class="header-icon-btn header-cart-btn"
+        aria-label="Cart ({{ cart.item_count }} items)"
+        onclick="document.getElementById('cart-drawer').classList.toggle('is-open'); document.getElementById('cart-overlay').classList.toggle('is-open');"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        {% if cart.item_count > 0 %}
+          <span class="header-cart-btn__count">{{ cart.item_count }}</span>
+        {% endif %}
+      </button>
+
+      <button
+        class="header-icon-btn hide-desktop"
+        aria-label="Open menu"
+        onclick="document.getElementById('mobile-nav').classList.add('is-open'); document.getElementById('cart-overlay').classList.add('is-open');"
+      >
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+
   </div>
+
+  <!-- MEGA MENU PANEL — always rendered, shown on hover/click -->
+  <div class="mega-menu full-width" id="mega-menu" role="navigation" aria-label="Shop navigation" hidden>
+    <div class="mega-menu__inner">
+
+      <!-- Shop by Brand -->
+      <div class="mega-col">
+        <div class="mega-col__header">
+          <span class="mega-col__icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+          </span>
+          <div>
+            <p class="mega-col__eyebrow">Filter by</p>
+            <h3 class="mega-col__title">Shop by Brand</h3>
+          </div>
+        </div>
+        <ul class="mega-col__list">
+          {% if section.settings.brand_menu != blank %}
+            {% for link in section.settings.brand_menu.links %}
+              <li>
+                <a href="{{ link.url }}" class="mega-col__link">
+                  <span class="mega-col__dot" aria-hidden="true"></span>
+                  {{ link.title }}
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mega-col__arrow" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </li>
+            {% endfor %}
+          {% else %}
+            {% assign default_brands = "KingWorX,Whiteline,Turbosmart,Brembo,K&N" | split: "," %}
+            {% assign default_brand_urls = "/collections/kingworx,/collections/whiteline,/collections/turbosmart,/collections/brembo,/collections/kn" | split: "," %}
+            {% for brand in default_brands %}
+              <li>
+                <a href="{{ default_brand_urls[forloop.index0] }}" class="mega-col__link">
+                  <span class="mega-col__dot" aria-hidden="true"></span>
+                  {{ brand }}
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mega-col__arrow" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </li>
+            {% endfor %}
+          {% endif %}
+        </ul>
+        <a href="{{ section.settings.brand_view_all | default: '/collections/all' }}" class="mega-col__view-all">View All Brands &rarr;</a>
+      </div>
+
+      <div class="mega-divider" aria-hidden="true"></div>
+
+      <!-- Shop by Car -->
+      <div class="mega-col">
+        <div class="mega-col__header">
+          <span class="mega-col__icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          </span>
+          <div>
+            <p class="mega-col__eyebrow">Filter by</p>
+            <h3 class="mega-col__title">Shop by Car</h3>
+          </div>
+        </div>
+        <ul class="mega-col__list">
+          {% if section.settings.car_menu != blank %}
+            {% for link in section.settings.car_menu.links %}
+              <li>
+                <a href="{{ link.url }}" class="mega-col__link">
+                  <span class="mega-col__dot" aria-hidden="true"></span>
+                  {{ link.title }}
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mega-col__arrow" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </li>
+            {% endfor %}
+          {% else %}
+            {% assign default_cars = "Toyota GR86,Subaru WRX,Nissan 370Z,Honda Civic,Mazda MX-5,Ford Mustang" | split: "," %}
+            {% assign default_car_urls = "/collections/toyota-gr86,/collections/subaru-wrx,/collections/nissan-370z,/collections/honda-civic,/collections/mazda-mx5,/collections/ford-mustang" | split: "," %}
+            {% for car in default_cars %}
+              <li>
+                <a href="{{ default_car_urls[forloop.index0] }}" class="mega-col__link">
+                  <span class="mega-col__dot" aria-hidden="true"></span>
+                  {{ car }}
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mega-col__arrow" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </li>
+            {% endfor %}
+          {% endif %}
+        </ul>
+        <a href="{{ section.settings.car_view_all | default: '/collections/all' }}" class="mega-col__view-all">View All Makes &rarr;</a>
+      </div>
+
+      <div class="mega-divider" aria-hidden="true"></div>
+
+      <!-- Shop by Category -->
+      <div class="mega-col">
+        <div class="mega-col__header">
+          <span class="mega-col__icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          </span>
+          <div>
+            <p class="mega-col__eyebrow">Filter by</p>
+            <h3 class="mega-col__title">Shop by Category</h3>
+          </div>
+        </div>
+        <ul class="mega-col__list mega-col__list--grid">
+          {% if section.settings.category_menu != blank %}
+            {% for link in section.settings.category_menu.links %}
+              <li>
+                <a href="{{ link.url }}" class="mega-col__link mega-col__link--pill">
+                  {{ link.title }}
+                </a>
+              </li>
+            {% endfor %}
+          {% else %}
+            {% assign default_cats = "Aero Kits,Performance,Suspension,Exhaust,Brakes,Exterior" | split: "," %}
+            {% assign default_cat_urls = "/collections/aero-kits,/collections/performance,/collections/suspension,/collections/exhaust,/collections/brakes,/collections/exterior" | split: "," %}
+            {% for cat in default_cats %}
+              <li>
+                <a href="{{ default_cat_urls[forloop.index0] }}" class="mega-col__link mega-col__link--pill">
+                  {{ cat }}
+                </a>
+              </li>
+            {% endfor %}
+          {% endif %}
+        </ul>
+        <a href="{{ section.settings.category_view_all | default: '/collections/all' }}" class="mega-col__view-all">View All Categories &rarr;</a>
+      </div>
+
+      <!-- Promo Panel -->
+      <div class="mega-promo">
+        <div class="mega-promo__slash" aria-hidden="true"></div>
+        <p class="mega-promo__eyebrow">Engineered in Australia</p>
+        <h4 class="mega-promo__heading">Precision Parts.<br>Unbeatable Value.</h4>
+        <p class="mega-promo__text">CAD-designed components manufactured to exact fitment specs.</p>
+        <a href="/collections/all" class="btn btn--primary" style="font-size:0.75rem;padding:0.6rem 1.2rem;">
+          Shop All Parts
+        </a>
+      </div>
+
+    </div>
+  </div>
+
 </header>
 
+<!-- Search Modal -->
+<dialog id="search-modal" class="search-modal" scroll-lock>
+  <div class="search-modal__inner">
+    <form action="{{ routes.search_url }}" method="get" role="search" class="search-modal__form">
+      <input type="hidden" name="type" value="product">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="search" name="q" placeholder="Search parts, brands, models..." class="search-modal__input" autocomplete="off" autofocus aria-label="Search">
+      <button type="submit" class="btn btn--primary">Search</button>
+    </form>
+    <button class="search-modal__close" aria-label="Close search" onclick="this.closest('dialog').removeAttribute('open')">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+</dialog>
+
+<!-- Mobile Navigation -->
+<nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation">
+  <div class="mobile-nav__header">
+    <a href="{{ routes.root_url }}">
+      <img src="{{ 'kingworxlogo.png' | asset_url }}" alt="{{ shop.name }}" width="120" class="site-header__logo-img" style="max-height:2.5rem;width:auto;">
+    </a>
+    <button class="header-icon-btn" aria-label="Close menu" onclick="document.getElementById('mobile-nav').classList.remove('is-open'); document.getElementById('cart-overlay').classList.remove('is-open');">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+
+  <div class="mobile-nav__links">
+    <!-- Main menu -->
+    {% for link in section.settings.menu.links %}
+      <a href="{{ link.url }}" class="mobile-nav__link {% if link.active %}is-active{% endif %}">{{ link.title }}</a>
+      {% if link.links.size > 0 %}
+        {% for child in link.links %}
+          <a href="{{ child.url }}" class="mobile-nav__link mobile-nav__link--child">{{ child.title }}</a>
+        {% endfor %}
+      {% endif %}
+    {% endfor %}
+
+    <!-- Shop By Brand (mobile) -->
+    <div class="mobile-nav__section-label">Shop By Brand</div>
+    {% if section.settings.brand_menu != blank %}
+      {% for link in section.settings.brand_menu.links %}
+        <a href="{{ link.url }}" class="mobile-nav__link mobile-nav__link--child">{{ link.title }}</a>
+      {% endfor %}
+    {% else %}
+      <a href="/collections/kingworx"   class="mobile-nav__link mobile-nav__link--child">KingWorX</a>
+      <a href="/collections/whiteline"  class="mobile-nav__link mobile-nav__link--child">Whiteline</a>
+      <a href="/collections/turbosmart" class="mobile-nav__link mobile-nav__link--child">Turbosmart</a>
+      <a href="/collections/brembo"     class="mobile-nav__link mobile-nav__link--child">Brembo</a>
+      <a href="/collections/kn"         class="mobile-nav__link mobile-nav__link--child">K&amp;N</a>
+    {% endif %}
+
+    <!-- Shop By Car (mobile) -->
+    <div class="mobile-nav__section-label">Shop By Car</div>
+    {% if section.settings.car_menu != blank %}
+      {% for link in section.settings.car_menu.links %}
+        <a href="{{ link.url }}" class="mobile-nav__link mobile-nav__link--child">{{ link.title }}</a>
+      {% endfor %}
+    {% else %}
+      <a href="/collections/toyota-gr86"  class="mobile-nav__link mobile-nav__link--child">Toyota GR86</a>
+      <a href="/collections/subaru-wrx"   class="mobile-nav__link mobile-nav__link--child">Subaru WRX</a>
+      <a href="/collections/nissan-370z"  class="mobile-nav__link mobile-nav__link--child">Nissan 370Z</a>
+      <a href="/collections/honda-civic"  class="mobile-nav__link mobile-nav__link--child">Honda Civic</a>
+      <a href="/collections/mazda-mx5"    class="mobile-nav__link mobile-nav__link--child">Mazda MX-5</a>
+      <a href="/collections/ford-mustang" class="mobile-nav__link mobile-nav__link--child">Ford Mustang</a>
+    {% endif %}
+
+    <!-- Shop By Category (mobile) -->
+    <div class="mobile-nav__section-label">Shop By Category</div>
+    {% if section.settings.category_menu != blank %}
+      {% for link in section.settings.category_menu.links %}
+        <a href="{{ link.url }}" class="mobile-nav__link mobile-nav__link--child">{{ link.title }}</a>
+      {% endfor %}
+    {% else %}
+      <a href="/collections/aero-kits"   class="mobile-nav__link mobile-nav__link--child">Aero Kits</a>
+      <a href="/collections/performance" class="mobile-nav__link mobile-nav__link--child">Performance</a>
+      <a href="/collections/suspension"  class="mobile-nav__link mobile-nav__link--child">Suspension</a>
+      <a href="/collections/exhaust"     class="mobile-nav__link mobile-nav__link--child">Exhaust</a>
+      <a href="/collections/brakes"      class="mobile-nav__link mobile-nav__link--child">Brakes</a>
+      <a href="/collections/exterior"    class="mobile-nav__link mobile-nav__link--child">Exterior</a>
+    {% endif %}
+
+    <div class="mobile-nav__divider"></div>
+    <a href="{{ routes.search_url }}" class="mobile-nav__link">Search</a>
+    {% if shop.customer_accounts_enabled %}
+      <a href="{{ routes.account_url }}" class="mobile-nav__link">Account</a>
+    {% endif %}
+    <a href="{{ routes.cart_url }}" class="mobile-nav__link">
+      Cart {% if cart.item_count > 0 %}<span class="mobile-nav__cart-count">{{ cart.item_count }}</span>{% endif %}
+    </a>
+  </div>
+</nav>
+
+<script>
+  (function() {
+    var trigger = document.getElementById('mega-menu-trigger');
+    var menu    = document.getElementById('mega-menu');
+    if (!trigger || !menu) return;
+
+    var btn = trigger.querySelector('button');
+    var open = false;
+
+    function openMega() {
+      open = true;
+      menu.hidden = false;
+      btn.setAttribute('aria-expanded', 'true');
+      trigger.classList.add('is-active');
+      requestAnimationFrame(function() { menu.classList.add('is-open'); });
+    }
+
+    function closeMega() {
+      open = false;
+      menu.classList.remove('is-open');
+      btn.setAttribute('aria-expanded', 'false');
+      trigger.classList.remove('is-active');
+      setTimeout(function() { if (!open) menu.hidden = true; }, 300);
+    }
+
+    trigger.addEventListener('mouseenter', openMega);
+    trigger.addEventListener('mouseleave', function(e) {
+      if (!menu.contains(e.relatedTarget)) closeMega();
+    });
+    menu.addEventListener('mouseenter', function() { open = true; });
+    menu.addEventListener('mouseleave', function(e) {
+      if (!trigger.contains(e.relatedTarget)) closeMega();
+    });
+
+    btn.addEventListener('click', function() { open ? closeMega() : openMega(); });
+
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeMega(); });
+  })();
+</script>
+
 {% stylesheet %}
-  header {
-    height: 5rem;
+  /* ---- Site Header ---- */
+  .site-header {
+    background: rgba(255, 255, 255, 0.97);
+    border-bottom: 1px solid var(--color-border);
+    position: relative;
+    z-index: 200;
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  }
+  .site-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--color-brand) 20%, var(--color-brand) 80%, transparent);
+    pointer-events: none;
+  }
+  .site-header--sticky { position: sticky; top: 0; }
+
+  .site-header__inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    height: var(--header-height);
+    padding: 0 var(--page-margin);
+    max-width: var(--page-width);
+    margin: 0 auto;
+    gap: 1.5rem;
   }
-  header a {
-    position: relative;
-    text-decoration: none;
-    color: var(--color-foreground);
+
+  /* ---- Logo ---- */
+  .site-header__logo {
+    flex-shrink: 0;
     display: flex;
     align-items: center;
-    justify-content: center;
+    transition: opacity var(--transition-fast);
   }
-  header a sup {
-    position: absolute;
-    left: 100%;
-    overflow: hidden;
-    max-width: var(--page-margin);
+  .site-header__logo:hover { opacity: 0.82; }
+
+  .site-header__logo-img {
+    height: auto;
+    max-height: 4rem;
+    width: auto;
+    max-width: {{ settings.logo_width }}px;
+    object-fit: contain;
   }
-  header svg {
-    width: 2rem;
-  }
-  header .header__menu,
-  header .header__icons {
+
+  /* ---- Nav ---- */
+  .site-header__nav {
     display: flex;
-    gap: 1rem;
+    align-items: center;
+    gap: 0.1rem;
+    flex: 1;
+  }
+
+  .nav-item { position: relative; }
+
+  .nav-item__link {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.5rem 0.85rem;
+    font-family: var(--font-heading--family);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #444444;
+    border-radius: 4px;
+    transition: color var(--transition-fast), background var(--transition-fast);
+    cursor: pointer;
+  }
+  .nav-item__link--btn { background: none; border: none; }
+  .nav-item__link:hover, .nav-item__link.is-active, .nav-item.is-active > .nav-item__link {
+    color: var(--color-brand);
+    background: rgba(198,0,0,0.05);
+  }
+
+  /* Standard dropdown */
+  .nav-dropdown {
+    position: absolute;
+    top: calc(100% + 4px); left: 0;
+    min-width: 220px;
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-top: 2px solid var(--color-brand);
+    border-radius: 0 0 6px 6px;
+    padding: 0.5rem 0;
+    opacity: 0; visibility: hidden;
+    transform: translateY(-6px);
+    transition: all var(--transition-base);
+    z-index: 300;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  }
+  .nav-item--has-dropdown:hover .nav-dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+
+  .nav-dropdown__item {
+    display: block;
+    padding: 0.6rem 1.25rem;
+    font-family: var(--font-heading--family);
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #555;
+    transition: color var(--transition-fast), background var(--transition-fast), padding var(--transition-fast);
+  }
+  .nav-dropdown__item:hover { color: var(--color-brand); background: rgba(198,0,0,0.04); padding-left: 1.6rem; }
+
+  /* ---- MEGA MENU ---- */
+  .mega-menu {
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    background: #fff;
+    border-top: 2px solid var(--color-brand);
+    border-bottom: 1px solid var(--color-border);
+    z-index: 190;
+    box-shadow: 0 12px 48px rgba(0,0,0,0.12);
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    pointer-events: none;
+  }
+  .mega-menu.is-open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+  }
+
+  .mega-menu__inner {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr 1px 1fr auto;
+    gap: 0;
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: 2rem var(--page-margin);
+    align-items: start;
+  }
+
+  /* Mega column */
+  .mega-col { padding: 0 2rem 0 0; }
+  .mega-col:first-child { padding-left: 0; }
+
+  .mega-col__header {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding-bottom: 1rem;
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid var(--color-border);
+    position: relative;
+  }
+  .mega-col__header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0;
+    width: 2.5rem; height: 2px;
+    background: var(--color-brand);
+    transition: width var(--transition-slow);
+  }
+  .mega-menu.is-open .mega-col__header::after { width: 100%; }
+
+  .mega-col__icon {
+    display: flex; align-items: center; justify-content: center;
+    width: 2.25rem; height: 2.25rem;
+    background: rgba(198,0,0,0.08);
+    border: 1px solid rgba(198,0,0,0.15);
+    border-radius: 5px;
+    color: var(--color-brand);
+    flex-shrink: 0;
+  }
+
+  .mega-col__eyebrow {
+    font-family: var(--font-heading--family);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    margin: 0; line-height: 1;
+  }
+
+  .mega-col__title {
+    font-family: var(--font-heading--family);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-foreground);
+    margin: 0.2rem 0 0; line-height: 1;
+  }
+
+  .mega-col__list {
+    list-style: none; padding: 0; margin: 0;
+    display: flex; flex-direction: column; gap: 0;
+  }
+
+  .mega-col__link {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 0.4rem;
+    font-family: var(--font-heading--family);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #555;
+    border-radius: 3px;
+    transition: all var(--transition-fast);
+    text-decoration: none;
+  }
+  .mega-col__link:hover {
+    color: var(--color-brand);
+    background: rgba(198,0,0,0.04);
+    padding-left: 0.75rem;
+  }
+
+  .mega-col__dot {
+    display: inline-block;
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--color-border);
+    flex-shrink: 0;
+    transition: background var(--transition-fast), transform var(--transition-fast);
+  }
+  .mega-col__link:hover .mega-col__dot { background: var(--color-brand); transform: scale(1.6); }
+
+  .mega-col__arrow {
+    color: transparent;
+    margin-left: auto;
+    transform: translateX(-4px);
+    transition: all var(--transition-fast);
+    flex-shrink: 0;
+  }
+  .mega-col__link:hover .mega-col__arrow { color: var(--color-brand); transform: translateX(0); }
+
+  /* Grid layout for categories */
+  .mega-col__list--grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.25rem;
+  }
+
+  .mega-col__link--pill {
+    padding: 0.4rem 0.75rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 100px;
+    font-size: 0.72rem;
+    justify-content: center;
+    gap: 0;
+  }
+  .mega-col__link--pill:hover {
+    background: var(--color-brand);
+    border-color: var(--color-brand);
+    color: #fff;
+    padding-left: 0.75rem;
+  }
+
+  .mega-col__view-all {
+    display: inline-block;
+    margin-top: 0.85rem;
+    font-family: var(--font-heading--family);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-brand);
+    transition: opacity var(--transition-fast);
+  }
+  .mega-col__view-all:hover { opacity: 0.75; }
+
+  /* Mega divider */
+  .mega-divider {
+    width: 1px;
+    align-self: stretch;
+    background: linear-gradient(to bottom, transparent, var(--color-border) 20%, var(--color-border) 80%, transparent);
+    margin: 0 2rem;
+  }
+
+  /* Mega promo panel */
+  .mega-promo {
+    background: #111;
+    border-radius: 8px;
+    padding: 1.75rem;
+    min-width: 220px;
+    position: relative;
+    overflow: hidden;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+  .mega-promo__slash {
+    position: absolute;
+    top: -20%; right: -10%;
+    width: 120%; height: 160%;
+    background: linear-gradient(135deg, transparent 50%, rgba(198,0,0,0.18) 50%);
+    transform: skewX(-8deg);
+    pointer-events: none;
+  }
+  .mega-promo__eyebrow {
+    font-family: var(--font-heading--family);
+    font-size: 0.62rem; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--color-brand); margin: 0; line-height: 1;
+  }
+  .mega-promo__heading {
+    font-family: var(--font-heading--family);
+    font-size: 1.15rem; font-weight: 700;
+    text-transform: uppercase; color: #fff;
+    margin: 0; line-height: 1.1;
+  }
+  .mega-promo__text {
+    font-size: 0.78rem; color: rgba(255,255,255,0.55); margin: 0; line-height: 1.5;
+  }
+
+  /* ---- Actions ---- */
+  .site-header__actions {
+    display: flex; align-items: center; gap: 0.2rem; flex-shrink: 0;
+  }
+
+  .header-icon-btn {
+    display: flex; align-items: center; justify-content: center;
+    width: 2.5rem; height: 2.5rem;
+    background: none; border: none; color: #666;
+    cursor: pointer; border-radius: 4px;
+    transition: color var(--transition-fast), background var(--transition-fast);
+    position: relative;
+  }
+  .header-icon-btn svg { width: 1.25rem; height: 1.25rem; }
+  .header-icon-btn:hover { color: var(--color-brand); background: rgba(198,0,0,0.06); }
+
+  .header-cart-btn__count {
+    position: absolute; top: 4px; right: 4px;
+    background: var(--color-brand); color: #fff;
+    font-family: var(--font-heading--family);
+    font-size: 0.58rem; font-weight: 700;
+    width: 1.1rem; height: 1.1rem;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 1px 6px rgba(198,0,0,0.4);
+  }
+
+  /* ---- Search Modal ---- */
+  .search-modal {
+    position: fixed; top: 0; left: 0; right: 0;
+    background: #fff; border: none;
+    border-bottom: 1px solid var(--color-border);
+    padding: 0; margin: 0; width: 100%;
+    z-index: 500; box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  }
+  .search-modal[open] { display: block; animation: slideDown 0.2s ease; }
+  @keyframes slideDown { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+  .search-modal__inner {
+    display: flex; align-items: center; gap: 1rem;
+    max-width: var(--page-width); margin: 0 auto;
+    padding: 1rem var(--page-margin);
+  }
+
+  .search-modal__form {
+    display: flex; align-items: center; gap: 1rem; flex: 1;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--style-border-radius-inputs);
+    padding: 0 1rem;
+  }
+  .search-modal__form svg { color: var(--color-muted); flex-shrink: 0; }
+  .search-modal__input {
+    flex: 1; background: none; border: none;
+    color: var(--color-foreground); font-size: 1rem;
+    padding: 0.85rem 0; outline: none; box-shadow: none;
+  }
+  .search-modal__close {
+    background: none; border: none; color: var(--color-muted);
+    cursor: pointer; padding: 0.25rem; display: flex;
+    align-items: center; flex-shrink: 0; transition: color var(--transition-fast);
+  }
+  .search-modal__close:hover { color: var(--color-brand); }
+
+  /* ---- Mobile Nav ---- */
+  .mobile-nav {
+    position: fixed; top: 0; left: 0;
+    width: min(340px, 100vw); height: 100%;
+    background: #fff;
+    border-right: 1px solid var(--color-border);
+    z-index: 1000;
+    transform: translateX(-100%);
+    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+    display: flex; flex-direction: column; overflow-y: auto;
+  }
+  .mobile-nav.is-open { transform: translateX(0); }
+
+  .mobile-nav__header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 1.25rem;
+    border-bottom: 2px solid var(--color-brand);
+    background: var(--color-surface);
+  }
+
+  .mobile-nav__section-label {
+    padding: 0.6rem 1.5rem 0.3rem;
+    font-family: var(--font-heading--family);
+    font-size: 0.62rem; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--color-brand);
+    background: rgba(198,0,0,0.04);
+    border-top: 1px solid var(--color-border);
+    margin-top: 0.25rem;
+  }
+
+  .mobile-nav__links { flex: 1; }
+
+  .mobile-nav__link {
+    display: block;
+    padding: 0.85rem 1.5rem;
+    font-family: var(--font-heading--family);
+    font-size: 0.85rem; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: #444;
+    border-bottom: 1px solid var(--color-border);
+    transition: color var(--transition-fast), background var(--transition-fast);
+  }
+  .mobile-nav__link:hover, .mobile-nav__link.is-active { color: var(--color-brand); background: rgba(198,0,0,0.04); }
+  .mobile-nav__link.is-active { border-left: 3px solid var(--color-brand); padding-left: calc(1.5rem - 3px); }
+  .mobile-nav__link--child { font-size: 0.75rem; padding-left: 2.25rem; color: #666; font-weight: 600; }
+  .mobile-nav__divider { height: 2px; background: var(--color-brand); margin: 0.5rem 1.5rem; opacity: 0.2; }
+  .mobile-nav__cart-count {
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--color-brand); color: #fff; font-size: 0.68rem;
+    width: 1.2rem; height: 1.2rem; border-radius: 50%; margin-left: 0.5rem;
   }
 {% endstylesheet %}
 
 {% schema %}
 {
-  "name": "t:general.header",
+  "name": "Header",
   "settings": [
     {
       "type": "link_list",
       "id": "menu",
-      "label": "t:labels.menu"
+      "label": "Main navigation menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "header",
+      "content": "Mega Menu — Shop By"
+    },
+    {
+      "type": "link_list",
+      "id": "brand_menu",
+      "label": "Shop by Brand menu"
+    },
+    {
+      "type": "url",
+      "id": "brand_view_all",
+      "label": "Brand — View All link"
+    },
+    {
+      "type": "link_list",
+      "id": "car_menu",
+      "label": "Shop by Car menu"
+    },
+    {
+      "type": "url",
+      "id": "car_view_all",
+      "label": "Car — View All link"
+    },
+    {
+      "type": "link_list",
+      "id": "category_menu",
+      "label": "Shop by Category menu"
+    },
+    {
+      "type": "url",
+      "id": "category_view_all",
+      "label": "Category — View All link"
     },
     {
       "type": "link_list",
       "id": "customer_account_menu",
-      "label": "t:labels.customer_account_menu",
+      "label": "Customer account menu",
       "default": "customer-account-main-menu"
     }
   ]

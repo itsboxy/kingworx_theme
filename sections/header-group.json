@@ -9,14 +9,21 @@
  */
 {
   "type": "header",
-  "name": "t:general.header",
+  "name": "Header",
   "sections": {
+    "announcement": {
+      "type": "announcement-bar",
+      "settings": {}
+    },
     "header": {
       "type": "header",
-      "settings": {}
+      "settings": {
+        "menu": "main-menu"
+      }
     }
   },
   "order": [
+    "announcement",
     "header"
-  ],
+  ]
 }

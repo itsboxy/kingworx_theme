@@ -1,0 +1,108 @@
+<section class="search-page section-padding">
+  <div class="search-page__header">
+    <h1 class="search-page__title">
+      {% if search.performed %}
+        {% if search.results_count > 0 %}
+          {{ search.results_count }} results for "{{ search.terms | escape }}"
+        {% else %}
+          No results for "{{ search.terms | escape }}"
+        {% endif %}
+      {% else %}
+        Search
+      {% endif %}
+    </h1>
+  </div>
+
+  <!-- Search Form -->
+  <form action="{{ routes.search_url }}" method="get" class="search-page__form" role="search">
+    <input type="hidden" name="type" value="product">
+    <div class="search-page__field">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input
+        type="search"
+        name="q"
+        value="{{ search.terms | escape }}"
+        placeholder="Search parts, brands, models..."
+        class="search-page__input"
+        autocomplete="off"
+        autofocus
+        aria-label="Search"
+      >
+      <button type="submit" class="btn btn--primary">Search</button>
+    </div>
+  </form>
+
+  <!-- Results -->
+  {% if search.performed %}
+    {% if search.results_count > 0 %}
+      <div class="product-grid" style="margin-top: var(--spacing-lg);">
+        {% for result in search.results %}
+          {% if result.object_type == 'product' %}
+            {% render 'product-card', product: result %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="search-empty">
+        <p>No products found for <strong>"{{ search.terms | escape }}"</strong>.</p>
+        <p>Try a different search term or <a href="{{ routes.all_products_collection_url }}">browse all products</a>.</p>
+      </div>
+    {% endif %}
+  {% endif %}
+</section>
+
+{% stylesheet %}
+  .search-page {
+    padding: var(--spacing-lg) var(--page-margin) var(--spacing-2xl);
+    max-width: var(--page-width);
+    margin: 0 auto;
+  }
+
+  .search-page__title {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .search-page__form {
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .search-page__field {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--style-border-radius-inputs);
+    padding: 0 1rem;
+    max-width: 640px;
+  }
+
+  .search-page__field svg { color: var(--color-muted); flex-shrink: 0; }
+
+  .search-page__input {
+    flex: 1;
+    background: none;
+    border: none;
+    color: var(--color-foreground);
+    font-size: 1rem;
+    padding: 0.85rem 0;
+    outline: none;
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  .search-empty {
+    padding: var(--spacing-xl) 0;
+    color: var(--color-muted);
+  }
+
+  .search-empty strong { color: var(--color-foreground); }
+  .search-empty a { color: var(--color-brand); }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Search"
+}
+{% endschema %}
