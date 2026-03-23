@@ -1,0 +1,238 @@
+{% comment %} KingWorX — Our Story Section {% endcomment %}
+
+<section class="our-story full-width {% if section.settings.reverse %}our-story--reverse{% endif %}">
+  <div class="our-story__inner">
+
+    <div class="our-story__text">
+      {% if section.settings.eyebrow != blank %}
+        <p class="our-story__eyebrow">
+          <span class="our-story__eyebrow-line"></span>
+          {{ section.settings.eyebrow }}
+        </p>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h2 class="our-story__heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+
+      {% if section.settings.paragraph != blank %}
+        <div class="our-story__body">{{ section.settings.paragraph }}</div>
+      {% endif %}
+
+      {% if section.settings.button_label != blank and section.settings.button_url != blank %}
+        <a href="{{ section.settings.button_url }}" class="btn btn--primary our-story__btn">
+          {{ section.settings.button_label }}
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="our-story__media">
+      {% if section.settings.image %}
+        <img
+          src="{{ section.settings.image | image_url: width: 900 }}"
+          alt="{{ section.settings.image.alt | default: section.settings.heading }}"
+          width="{{ section.settings.image.width }}"
+          height="{{ section.settings.image.height }}"
+          loading="lazy"
+          class="our-story__img"
+        >
+      {% else %}
+        <div class="our-story__img-placeholder">
+          <svg viewBox="0 0 600 400" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect width="600" height="400" fill="#1c1c1c"/>
+            <path d="M200 280 L300 160 L400 280 Z" fill="#2a2a2a" stroke="#c60000" stroke-width="2"/>
+            <circle cx="300" cy="200" r="60" fill="none" stroke="#c60000" stroke-width="1.5" stroke-dasharray="6 4"/>
+          </svg>
+        </div>
+      {% endif %}
+    </div>
+
+  </div>
+</section>
+
+{% stylesheet %}
+  .our-story {
+    padding: var(--spacing-2xl) 0;
+    background: var(--color-background);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .our-story::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-border) 30%, var(--color-border) 70%, transparent);
+  }
+
+  .our-story__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-xl);
+    align-items: center;
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: 0 var(--page-margin);
+  }
+
+  .our-story--reverse .our-story__inner {
+    direction: rtl;
+  }
+  .our-story--reverse .our-story__text,
+  .our-story--reverse .our-story__media {
+    direction: ltr;
+  }
+
+  .our-story__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-brand);
+    margin: 0 0 1.25rem;
+  }
+  .our-story__eyebrow-line {
+    display: block;
+    width: 2rem;
+    height: 2px;
+    background: var(--color-brand);
+    flex-shrink: 0;
+  }
+
+  .our-story__heading {
+    font-family: var(--font-heading--family);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--color-foreground);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin: 0 0 1.5rem;
+  }
+
+  .our-story__body {
+    color: var(--color-muted);
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+  .our-story__body p {
+    margin: 0 0 1rem;
+  }
+  .our-story__body p:last-child {
+    margin-bottom: 0;
+  }
+
+  .our-story__btn {
+    margin-top: 2rem;
+    display: inline-flex;
+  }
+
+  .our-story__media {
+    position: relative;
+    border-radius: var(--style-border-radius-cards);
+    overflow: hidden;
+  }
+
+  .our-story__media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--color-border);
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  .our-story__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 4 / 3;
+    display: block;
+    transition: transform var(--transition-slow);
+  }
+
+  .our-story__media:hover .our-story__img {
+    transform: scale(1.03);
+  }
+
+  .our-story__img-placeholder {
+    aspect-ratio: 4 / 3;
+    background: var(--color-surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .our-story__img-placeholder svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .our-story__inner {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-lg);
+    }
+    .our-story--reverse .our-story__inner {
+      direction: ltr;
+    }
+    .our-story__media {
+      order: -1;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Our Story",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Our Story"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Built Different. Made to Last."
+    },
+    {
+      "type": "richtext",
+      "id": "paragraph",
+      "label": "Paragraph",
+      "default": "<p>KingWorX was born from a simple frustration: quality aero and performance parts should not cost a fortune in Australia. Our founder spent years watching local builders pay premium prices for parts with poor fitment and mediocre finish.</p><p>So we sat down at a CAD workstation, modelled our first component from scratch, and had it manufactured to tight tolerances. The result? Parts that actually fit. Every time.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Read Our Story"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button URL"
+    },
+    {
+      "type": "checkbox",
+      "id": "reverse",
+      "label": "Reverse layout (image on left)",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Our Story"
+    }
+  ]
+}
+{% endschema %}

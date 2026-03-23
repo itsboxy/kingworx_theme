@@ -8,7 +8,8 @@
       "Bash(taskkill /F /IM node.exe)",
       "Bash(cmd.exe /c \"taskkill /F /IM node.exe\")",
       "Bash(netstat -ano)",
-      "Bash(cmd.exe /c \"taskkill /PID 29500 /F\")"
+      "Bash(cmd.exe /c \"taskkill /PID 29500 /F\")",
+      "Bash(findstr :9292)"
     ]
   }
 }

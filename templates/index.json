@@ -22,7 +22,7 @@
         "button_label": "Shop Now",
         "button_url": "/collections/all",
         "button_2_label": "Our Story",
-        "button_2_url": "/pages/about",
+        "button_2_url": "/pages/about-us",
         "hero_height": "tall",
         "content_position": "left",
         "show_scroll_indicator": true
@@ -120,6 +120,28 @@
         "view_all_url": "/collections/all"
       }
     },
+    "our-story-1": {
+      "type": "our-story",
+      "settings": {
+        "eyebrow": "Our Story",
+        "heading": "A Garage, a CAD Seat, and a Problem to Solve",
+        "paragraph": "<p>KingWorX was born out of frustration. Our founder — a passionate car enthusiast and mechanical engineer — spent years watching Australian car builders pay premium prices for parts that were mediocre in fitment, finish, and function. The industry gap was obvious: no one was designing parts <em>specifically</em> for the cars Australians actually drive.</p><p>So we sat down at a CAD workstation, modelled our first underbody component from scratch, and had it manufactured to tight tolerances. The result? Parts that actually fit. Every time.</p>",
+        "button_label": "Read Our Full Story",
+        "button_url": "/pages/about-us",
+        "reverse": false
+      }
+    },
+    "our-story-2": {
+      "type": "our-story",
+      "settings": {
+        "eyebrow": "Engineered in Australia",
+        "heading": "Built for Aussie Roads. Proven on the Track.",
+        "paragraph": "<p>Every component we design starts with one question: will it survive Australian conditions? From coastal salt air to outback heat, our parts are engineered to withstand the extremes — not just look good in a catalogue photo.</p><p>We don't sign off on a product until fitment is perfect and finish meets our own exacting standards. Factory-direct pricing means you get premium quality without the premium markup.</p>",
+        "button_label": "Shop All Parts",
+        "button_url": "/collections/all",
+        "reverse": true
+      }
+    },
     "newsletter": {
       "type": "newsletter",
       "settings": {
@@ -136,6 +158,8 @@
     "brand-strip",
     "categories",
     "featured-products",
+    "our-story-1",
+    "our-story-2",
     "newsletter"
   ]
 }

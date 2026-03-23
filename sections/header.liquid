@@ -412,8 +412,8 @@
     align-items: center;
     justify-content: space-between;
     height: var(--header-height);
-    padding: 0 var(--page-margin);
-    max-width: var(--page-width);
+    padding: 0 max(var(--page-margin), 2rem);
+    max-width: min(calc(var(--page-width) + 6rem), calc(100vw - 2rem));
     margin: 0 auto;
     gap: 1.5rem;
   }
