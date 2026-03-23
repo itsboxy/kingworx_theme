@@ -9,10 +9,6 @@
  */
 {
   "sections": {
-    "announcement": {
-      "type": "announcement-bar",
-      "settings": {}
-    },
     "hero": {
       "type": "hero-banner",
       "settings": {
@@ -26,96 +22,6 @@
         "button_2_label": "Our Story",
         "button_2_url": "/pages/about-us",
         "show_scroll_indicator": true
-      }
-    },
-    "brand-strip": {
-      "type": "brand-strip",
-      "blocks": {
-        "feature-1": {
-          "type": "feature",
-          "settings": {
-            "icon": "performance",
-            "label": "High Performance",
-            "sublabel": "Track-tested components"
-          }
-        },
-        "feature-2": {
-          "type": "feature",
-          "settings": {
-            "icon": "precision",
-            "label": "Precision Fitment",
-            "sublabel": "CAD-engineered accuracy"
-          }
-        },
-        "feature-3": {
-          "type": "feature",
-          "settings": {
-            "icon": "affordability",
-            "label": "Affordable Pricing",
-            "sublabel": "Factory-direct savings"
-          }
-        },
-        "feature-4": {
-          "type": "feature",
-          "settings": {
-            "icon": "shipping",
-            "label": "Fast Shipping",
-            "sublabel": "Australia-wide delivery"
-          }
-        },
-        "feature-5": {
-          "type": "feature",
-          "settings": {
-            "icon": "australia",
-            "label": "Aus Designed",
-            "sublabel": "Built for Aussie roads"
-          }
-        }
-      },
-      "settings": {}
-    },
-    "categories": {
-      "type": "category-grid",
-      "blocks": {
-        "cat-1": {
-          "type": "category",
-          "settings": {
-            "eyebrow": "Aerodynamics",
-            "title": "Aero Kits",
-            "count": "View Collection"
-          }
-        },
-        "cat-2": {
-          "type": "category",
-          "settings": {
-            "eyebrow": "Engine Bay",
-            "title": "Performance Parts",
-            "count": "View Collection"
-          }
-        },
-        "cat-3": {
-          "type": "category",
-          "settings": {
-            "eyebrow": "Chassis",
-            "title": "Suspension",
-            "count": "View Collection"
-          }
-        }
-      },
-      "settings": {
-        "eyebrow": "Browse by Category",
-        "heading": "Shop by Category",
-        "layout": "featured"
-      }
-    },
-    "featured-products": {
-      "type": "featured-products",
-      "settings": {
-        "eyebrow": "Top Picks",
-        "heading": "Featured Parts",
-        "products_to_show": 4,
-        "view_all_label": "View All Products",
-        "view_all_url": "/collections/all"
       }
     },
     "our-story-1": {
@@ -140,6 +46,21 @@
         "reverse": true
       }
     },
+    "brand-strip": {
+      "type": "brand-strip",
+      "settings": {}
+    },
+    "featured-products": {
+      "type": "featured-products",
+      "settings": {
+        "eyebrow": "Top Picks",
+        "heading": "Featured Parts",
+        "collection": "",
+        "products_to_show": 4,
+        "view_all_label": "View All Products",
+        "view_all_url": "/collections/all"
+      }
+    },
     "newsletter": {
       "type": "newsletter",
       "settings": {
@@ -148,16 +69,194 @@
         "placeholder": "your@email.com",
         "button_label": "Subscribe"
       }
+    },
+    "shop_by_NMmJtX": {
+      "type": "shop-by",
+      "blocks": {
+        "brand_6bVgL6": {
+          "type": "brand",
+          "settings": {
+            "name": "KingWorX",
+            "count": "Own brand",
+            "link": ""
+          }
+        },
+        "brand_GGrFAN": {
+          "type": "brand",
+          "settings": {
+            "name": "Whiteline",
+            "count": "Suspension",
+            "link": ""
+          }
+        },
+        "brand_Nx7rUL": {
+          "type": "brand",
+          "settings": {
+            "name": "Turbosmart",
+            "count": "Boost",
+            "link": ""
+          }
+        },
+        "brand_WBmD6h": {
+          "type": "brand",
+          "settings": {
+            "name": "Brembo",
+            "count": "Brakes",
+            "link": ""
+          }
+        },
+        "brand_WtjkCV": {
+          "type": "brand",
+          "settings": {
+            "name": "K&N",
+            "count": "Intake",
+            "link": ""
+          }
+        },
+        "car_zygCGJ": {
+          "type": "car",
+          "settings": {
+            "make": "Toyota",
+            "model": "GR86",
+            "years": "2022+",
+            "link": ""
+          }
+        },
+        "car_gJzYct": {
+          "type": "car",
+          "settings": {
+            "make": "Subaru",
+            "model": "WRX",
+            "years": "2015+",
+            "link": ""
+          }
+        },
+        "car_Ch9kfw": {
+          "type": "car",
+          "settings": {
+            "make": "Nissan",
+            "model": "370Z",
+            "years": "2009+",
+            "link": ""
+          }
+        },
+        "car_FYGA7x": {
+          "type": "car",
+          "settings": {
+            "make": "Honda",
+            "model": "Civic",
+            "years": "2017+",
+            "link": ""
+          }
+        },
+        "car_67Exzg": {
+          "type": "car",
+          "settings": {
+            "make": "Mazda",
+            "model": "MX-5",
+            "years": "2016+",
+            "link": ""
+          }
+        },
+        "car_Lzfd3L": {
+          "type": "car",
+          "settings": {
+            "make": "Ford",
+            "model": "Mustang",
+            "years": "2015+",
+            "link": ""
+          }
+        },
+        "category_item_anHCLH": {
+          "type": "category_item",
+          "settings": {
+            "name": "Aero Kits",
+            "icon": "aero",
+            "count": "Underbody",
+            "link": ""
+          }
+        },
+        "category_item_x3YYNT": {
+          "type": "category_item",
+          "settings": {
+            "name": "Performance",
+            "icon": "engine",
+            "count": "Engine Bay",
+            "link": ""
+          }
+        },
+        "category_item_KiG9hH": {
+          "type": "category_item",
+          "settings": {
+            "name": "Suspension",
+            "icon": "suspension",
+            "count": "Handling",
+            "link": ""
+          }
+        },
+        "category_item_3yBqPp": {
+          "type": "category_item",
+          "settings": {
+            "name": "Exhaust",
+            "icon": "exhaust",
+            "count": "Sound & Flow",
+            "link": ""
+          }
+        },
+        "category_item_Y34xad": {
+          "type": "category_item",
+          "settings": {
+            "name": "Brakes",
+            "icon": "brakes",
+            "count": "Stopping Power",
+            "link": ""
+          }
+        },
+        "category_item_NE8JW6": {
+          "type": "category_item",
+          "settings": {
+            "name": "Exterior",
+            "icon": "exterior",
+            "count": "Look & Feel",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "brand_6bVgL6",
+        "brand_GGrFAN",
+        "brand_Nx7rUL",
+        "brand_WBmD6h",
+        "brand_WtjkCV",
+        "car_zygCGJ",
+        "car_gJzYct",
+        "car_Ch9kfw",
+        "car_FYGA7x",
+        "car_67Exzg",
+        "car_Lzfd3L",
+        "category_item_anHCLH",
+        "category_item_x3YYNT",
+        "category_item_KiG9hH",
+        "category_item_3yBqPp",
+        "category_item_Y34xad",
+        "category_item_NE8JW6"
+      ],
+      "name": "Shop By",
+      "settings": {
+        "heading": "Shop Your Way",
+        "brand_view_all": "",
+        "car_view_all": "",
+        "category_view_all": ""
+      }
     }
   },
   "order": [
-    "announcement",
     "hero",
-    "brand-strip",
-    "categories",
-    "featured-products",
     "our-story-1",
     "our-story-2",
-    "newsletter"
+    "brand-strip",
+    "featured-products",
+    "newsletter",
+    "shop_by_NMmJtX"
   ]
 }
