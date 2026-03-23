@@ -9,13 +9,11 @@
  */
 {
   "sections": {
-    "announcement": {
-      "type": "announcement-bar",
-      "settings": {}
-    },
     "hero": {
       "type": "hero-banner",
       "settings": {
+        "hero_height": "tall",
+        "content_position": "left",
         "eyebrow": "Engineered in Australia",
         "heading": "Performance Parts That Perform",
         "subheading": "Precision-designed aero kits, underbody components, and performance parts. Built for fitment. Built for the road.",
@@ -23,101 +21,7 @@
         "button_url": "/collections/all",
         "button_2_label": "Our Story",
         "button_2_url": "/pages/about-us",
-        "hero_height": "tall",
-        "content_position": "left",
         "show_scroll_indicator": true
-      }
-    },
-    "brand-strip": {
-      "type": "brand-strip",
-      "blocks": {
-        "feature-1": {
-          "type": "feature",
-          "settings": {
-            "icon": "performance",
-            "label": "High Performance",
-            "sublabel": "Track-tested components"
-          }
-        },
-        "feature-2": {
-          "type": "feature",
-          "settings": {
-            "icon": "precision",
-            "label": "Precision Fitment",
-            "sublabel": "CAD-engineered accuracy"
-          }
-        },
-        "feature-3": {
-          "type": "feature",
-          "settings": {
-            "icon": "affordability",
-            "label": "Affordable Pricing",
-            "sublabel": "Factory-direct savings"
-          }
-        },
-        "feature-4": {
-          "type": "feature",
-          "settings": {
-            "icon": "shipping",
-            "label": "Fast Shipping",
-            "sublabel": "Australia-wide delivery"
-          }
-        },
-        "feature-5": {
-          "type": "feature",
-          "settings": {
-            "icon": "australia",
-            "label": "Aus Designed",
-            "sublabel": "Built for Aussie roads"
-          }
-        }
-      },
-      "blocks_order": ["feature-1", "feature-2", "feature-3", "feature-4", "feature-5"],
-      "settings": {}
-    },
-    "categories": {
-      "type": "category-grid",
-      "blocks": {
-        "cat-1": {
-          "type": "category",
-          "settings": {
-            "eyebrow": "Aerodynamics",
-            "title": "Aero Kits",
-            "count": "View Collection"
-          }
-        },
-        "cat-2": {
-          "type": "category",
-          "settings": {
-            "eyebrow": "Engine Bay",
-            "title": "Performance Parts",
-            "count": "View Collection"
-          }
-        },
-        "cat-3": {
-          "type": "category",
-          "settings": {
-            "eyebrow": "Chassis",
-            "title": "Suspension",
-            "count": "View Collection"
-          }
-        }
-      },
-      "blocks_order": ["cat-1", "cat-2", "cat-3"],
-      "settings": {
-        "eyebrow": "Browse by Category",
-        "heading": "Shop by Category",
-        "layout": "featured"
-      }
-    },
-    "featured-products": {
-      "type": "featured-products",
-      "settings": {
-        "eyebrow": "Top Picks",
-        "heading": "Featured Parts",
-        "products_to_show": 4,
-        "view_all_label": "View All Products",
-        "view_all_url": "/collections/all"
       }
     },
     "our-story-1": {
@@ -126,6 +30,7 @@
         "eyebrow": "Our Story",
         "heading": "A Garage, a CAD Seat, and a Problem to Solve",
         "paragraph": "<p>KingWorX was born out of frustration. Our founder — a passionate car enthusiast and mechanical engineer — spent years watching Australian car builders pay premium prices for parts that were mediocre in fitment, finish, and function. The industry gap was obvious: no one was designing parts <em>specifically</em> for the cars Australians actually drive.</p><p>So we sat down at a CAD workstation, modelled our first underbody component from scratch, and had it manufactured to tight tolerances. The result? Parts that actually fit. Every time.</p>",
+        "image": "shopify://shop_images/IMG-20250116-WA0008.jpg",
         "button_label": "Read Our Full Story",
         "button_url": "/pages/about-us",
         "reverse": false
@@ -137,9 +42,25 @@
         "eyebrow": "Engineered in Australia",
         "heading": "Built for Aussie Roads. Proven on the Track.",
         "paragraph": "<p>Every component we design starts with one question: will it survive Australian conditions? From coastal salt air to outback heat, our parts are engineered to withstand the extremes — not just look good in a catalogue photo.</p><p>We don't sign off on a product until fitment is perfect and finish meets our own exacting standards. Factory-direct pricing means you get premium quality without the premium markup.</p>",
+        "image": "shopify://shop_images/pixelcut_5-2.png",
         "button_label": "Shop All Parts",
         "button_url": "/collections/all",
         "reverse": true
+      }
+    },
+    "brand-strip": {
+      "type": "brand-strip",
+      "settings": {}
+    },
+    "featured-products": {
+      "type": "featured-products",
+      "settings": {
+        "eyebrow": "Top Picks",
+        "heading": "Featured Parts",
+        "collection": "",
+        "products_to_show": 4,
+        "view_all_label": "View All Products",
+        "view_all_url": "/collections/all"
       }
     },
     "newsletter": {
@@ -150,16 +71,194 @@
         "placeholder": "your@email.com",
         "button_label": "Subscribe"
       }
+    },
+    "shop_by_NMmJtX": {
+      "type": "shop-by",
+      "blocks": {
+        "brand_6bVgL6": {
+          "type": "brand",
+          "settings": {
+            "name": "KingWorX",
+            "count": "Own brand",
+            "link": ""
+          }
+        },
+        "brand_GGrFAN": {
+          "type": "brand",
+          "settings": {
+            "name": "Whiteline",
+            "count": "Suspension",
+            "link": ""
+          }
+        },
+        "brand_Nx7rUL": {
+          "type": "brand",
+          "settings": {
+            "name": "Turbosmart",
+            "count": "Boost",
+            "link": ""
+          }
+        },
+        "brand_WBmD6h": {
+          "type": "brand",
+          "settings": {
+            "name": "Brembo",
+            "count": "Brakes",
+            "link": ""
+          }
+        },
+        "brand_WtjkCV": {
+          "type": "brand",
+          "settings": {
+            "name": "K&N",
+            "count": "Intake",
+            "link": ""
+          }
+        },
+        "car_zygCGJ": {
+          "type": "car",
+          "settings": {
+            "make": "Toyota",
+            "model": "GR86",
+            "years": "2022+",
+            "link": ""
+          }
+        },
+        "car_gJzYct": {
+          "type": "car",
+          "settings": {
+            "make": "Subaru",
+            "model": "WRX",
+            "years": "2015+",
+            "link": ""
+          }
+        },
+        "car_Ch9kfw": {
+          "type": "car",
+          "settings": {
+            "make": "Nissan",
+            "model": "370Z",
+            "years": "2009+",
+            "link": ""
+          }
+        },
+        "car_FYGA7x": {
+          "type": "car",
+          "settings": {
+            "make": "Honda",
+            "model": "Civic",
+            "years": "2017+",
+            "link": ""
+          }
+        },
+        "car_67Exzg": {
+          "type": "car",
+          "settings": {
+            "make": "Mazda",
+            "model": "MX-5",
+            "years": "2016+",
+            "link": ""
+          }
+        },
+        "car_Lzfd3L": {
+          "type": "car",
+          "settings": {
+            "make": "Ford",
+            "model": "Mustang",
+            "years": "2015+",
+            "link": ""
+          }
+        },
+        "category_item_anHCLH": {
+          "type": "category_item",
+          "settings": {
+            "name": "Aero Kits",
+            "icon": "aero",
+            "count": "Underbody",
+            "link": ""
+          }
+        },
+        "category_item_x3YYNT": {
+          "type": "category_item",
+          "settings": {
+            "name": "Performance",
+            "icon": "engine",
+            "count": "Engine Bay",
+            "link": ""
+          }
+        },
+        "category_item_KiG9hH": {
+          "type": "category_item",
+          "settings": {
+            "name": "Suspension",
+            "icon": "suspension",
+            "count": "Handling",
+            "link": ""
+          }
+        },
+        "category_item_3yBqPp": {
+          "type": "category_item",
+          "settings": {
+            "name": "Exhaust",
+            "icon": "exhaust",
+            "count": "Sound & Flow",
+            "link": ""
+          }
+        },
+        "category_item_Y34xad": {
+          "type": "category_item",
+          "settings": {
+            "name": "Brakes",
+            "icon": "brakes",
+            "count": "Stopping Power",
+            "link": ""
+          }
+        },
+        "category_item_NE8JW6": {
+          "type": "category_item",
+          "settings": {
+            "name": "Exterior",
+            "icon": "exterior",
+            "count": "Look & Feel",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "brand_6bVgL6",
+        "brand_GGrFAN",
+        "brand_Nx7rUL",
+        "brand_WBmD6h",
+        "brand_WtjkCV",
+        "car_zygCGJ",
+        "car_gJzYct",
+        "car_Ch9kfw",
+        "car_FYGA7x",
+        "car_67Exzg",
+        "car_Lzfd3L",
+        "category_item_anHCLH",
+        "category_item_x3YYNT",
+        "category_item_KiG9hH",
+        "category_item_3yBqPp",
+        "category_item_Y34xad",
+        "category_item_NE8JW6"
+      ],
+      "name": "Shop By",
+      "settings": {
+        "heading": "Shop Your Way",
+        "brand_view_all": "",
+        "car_view_all": "",
+        "category_view_all": ""
+      }
     }
   },
   "order": [
-    "announcement",
     "hero",
-    "brand-strip",
-    "categories",
-    "featured-products",
     "our-story-1",
     "our-story-2",
-    "newsletter"
+    "brand-strip",
+    "featured-products",
+    "newsletter",
+    "shop_by_NMmJtX"
   ]
 }

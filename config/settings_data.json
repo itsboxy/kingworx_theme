@@ -18,7 +18,7 @@
     "foreground_color": "#111111",
     "color_muted": "#666666",
     "color_border": "#e0e0e0",
-    "max_page_width": "110rem",
+    "max_page_width": "90rem",
     "min_page_margin": 20,
     "input_corner_radius": 2,
     "card_corner_radius": 6,
