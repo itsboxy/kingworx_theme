@@ -16,6 +16,8 @@
     "hero": {
       "type": "hero-banner",
       "settings": {
+        "hero_height": "tall",
+        "content_position": "left",
         "eyebrow": "Engineered in Australia",
         "heading": "Performance Parts That Perform",
         "subheading": "Precision-designed aero kits, underbody components, and performance parts. Built for fitment. Built for the road.",
@@ -23,8 +25,6 @@
         "button_url": "/collections/all",
         "button_2_label": "Our Story",
         "button_2_url": "/pages/about-us",
-        "hero_height": "tall",
-        "content_position": "left",
         "show_scroll_indicator": true
       }
     },
@@ -72,7 +72,6 @@
           }
         }
       },
-      "blocks_order": ["feature-1", "feature-2", "feature-3", "feature-4", "feature-5"],
       "settings": {}
     },
     "categories": {
@@ -103,7 +102,6 @@
           }
         }
       },
-      "blocks_order": ["cat-1", "cat-2", "cat-3"],
       "settings": {
         "eyebrow": "Browse by Category",
         "heading": "Shop by Category",
