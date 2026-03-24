@@ -9,6 +9,12 @@
  */
 {
   "sections": {
+    "announcement_bar_9tKgYH": {
+      "type": "announcement-bar",
+      "custom_css": [],
+      "name": "Announcement Bar",
+      "settings": {}
+    },
     "hero": {
       "type": "hero-banner",
       "settings": {
@@ -256,6 +262,7 @@
     }
   },
   "order": [
+    "announcement_bar_9tKgYH",
     "hero",
     "our-story-1",
     "our-story-2",
