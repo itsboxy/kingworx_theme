@@ -18,7 +18,14 @@
     "header": {
       "type": "header",
       "settings": {
-        "menu": "main-menu"
+        "menu": "main-menu",
+        "brand_menu": "",
+        "brand_view_all": "shopify://collections",
+        "car_menu": "",
+        "car_view_all": "",
+        "category_menu": "",
+        "category_view_all": "",
+        "customer_account_menu": "customer-account-main-menu"
       }
     }
   },
