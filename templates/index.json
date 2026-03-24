@@ -88,6 +88,7 @@
           "type": "brand",
           "settings": {
             "name": "Turbosmart",
+            "logo": "shopify://shop_images/turbosmart-logo-png_seeklogo-143131.png",
             "count": "Boost",
             "link": ""
           }
