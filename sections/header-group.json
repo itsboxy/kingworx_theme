@@ -17,8 +17,19 @@
     },
     "header": {
       "type": "header",
+      "custom_css": [
+        ".site-header {border: 0;}",
+        ".site-header__inner {height: 6rem; justify-content: center;}"
+      ],
       "settings": {
-        "menu": "main-menu"
+        "menu": "main-menu",
+        "brand_menu": "",
+        "brand_view_all": "shopify://collections",
+        "car_menu": "",
+        "car_view_all": "",
+        "category_menu": "",
+        "category_view_all": "",
+        "customer_account_menu": ""
       }
     }
   },
