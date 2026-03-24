@@ -17,6 +17,9 @@
     },
     "header": {
       "type": "header",
+      "custom_css": [
+        ".site-header {border: 0;}"
+      ],
       "settings": {
         "menu": "main-menu",
         "brand_menu": "",
@@ -25,7 +28,7 @@
         "car_view_all": "",
         "category_menu": "",
         "category_view_all": "",
-        "customer_account_menu": "customer-account-main-menu"
+        "customer_account_menu": ""
       }
     }
   },
