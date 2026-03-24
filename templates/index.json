@@ -11,6 +11,7 @@
   "sections": {
     "hero": {
       "type": "hero-banner",
+      "custom_css": [],
       "settings": {
         "hero_height": "tall",
         "content_position": "left",
@@ -63,188 +64,6 @@
         "view_all_url": "/collections/all"
       }
     },
-    "shop_by_NMmJtX": {
-      "type": "shop-by",
-      "blocks": {
-        "brand_6bVgL6": {
-          "type": "brand",
-          "settings": {
-            "name": "KingWorX",
-            "logo": "shopify://shop_images/KingWorX_Cropped_to_Fit.png",
-            "count": "Own brand",
-            "link": "shopify://collections/kingworx"
-          }
-        },
-        "brand_GGrFAN": {
-          "type": "brand",
-          "settings": {
-            "name": "Aeroflow",
-            "logo": "shopify://shop_images/Aeroflow_Logo_1.png",
-            "count": "Performance Parts",
-            "link": "shopify://collections/aeroflow"
-          }
-        },
-        "brand_Nx7rUL": {
-          "type": "brand",
-          "settings": {
-            "name": "Turbosmart",
-            "logo": "shopify://shop_images/turbosmart-logo-png_seeklogo-143131.png",
-            "count": "Boost",
-            "link": ""
-          }
-        },
-        "brand_WBmD6h": {
-          "type": "brand",
-          "settings": {
-            "name": "Brembo",
-            "count": "Brakes",
-            "link": ""
-          }
-        },
-        "brand_WtjkCV": {
-          "type": "brand",
-          "settings": {
-            "name": "K&N",
-            "count": "Intake",
-            "link": ""
-          }
-        },
-        "car_zygCGJ": {
-          "type": "car",
-          "settings": {
-            "make": "Toyota",
-            "model": "GR86",
-            "years": "2022+",
-            "link": ""
-          }
-        },
-        "car_gJzYct": {
-          "type": "car",
-          "settings": {
-            "make": "Subaru",
-            "model": "WRX",
-            "years": "2015+",
-            "link": ""
-          }
-        },
-        "car_Ch9kfw": {
-          "type": "car",
-          "settings": {
-            "make": "Nissan",
-            "model": "370Z",
-            "years": "2009+",
-            "link": ""
-          }
-        },
-        "car_FYGA7x": {
-          "type": "car",
-          "settings": {
-            "make": "Honda",
-            "model": "Civic",
-            "years": "2017+",
-            "link": ""
-          }
-        },
-        "car_67Exzg": {
-          "type": "car",
-          "settings": {
-            "make": "Mazda",
-            "model": "MX-5",
-            "years": "2016+",
-            "link": ""
-          }
-        },
-        "car_Lzfd3L": {
-          "type": "car",
-          "settings": {
-            "make": "Ford",
-            "model": "Mustang",
-            "years": "2015+",
-            "link": ""
-          }
-        },
-        "category_item_anHCLH": {
-          "type": "category_item",
-          "settings": {
-            "name": "Aero Kits",
-            "icon": "aero",
-            "count": "Underbody",
-            "link": ""
-          }
-        },
-        "category_item_x3YYNT": {
-          "type": "category_item",
-          "settings": {
-            "name": "Performance",
-            "icon": "engine",
-            "count": "Engine Bay",
-            "link": ""
-          }
-        },
-        "category_item_KiG9hH": {
-          "type": "category_item",
-          "settings": {
-            "name": "Suspension",
-            "icon": "suspension",
-            "count": "Handling",
-            "link": ""
-          }
-        },
-        "category_item_3yBqPp": {
-          "type": "category_item",
-          "settings": {
-            "name": "Exhaust",
-            "icon": "exhaust",
-            "count": "Sound & Flow",
-            "link": ""
-          }
-        },
-        "category_item_Y34xad": {
-          "type": "category_item",
-          "settings": {
-            "name": "Brakes",
-            "icon": "brakes",
-            "count": "Stopping Power",
-            "link": ""
-          }
-        },
-        "category_item_NE8JW6": {
-          "type": "category_item",
-          "settings": {
-            "name": "Exterior",
-            "icon": "exterior",
-            "count": "Look & Feel",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "brand_6bVgL6",
-        "brand_GGrFAN",
-        "brand_Nx7rUL",
-        "brand_WBmD6h",
-        "brand_WtjkCV",
-        "car_zygCGJ",
-        "car_gJzYct",
-        "car_Ch9kfw",
-        "car_FYGA7x",
-        "car_67Exzg",
-        "car_Lzfd3L",
-        "category_item_anHCLH",
-        "category_item_x3YYNT",
-        "category_item_KiG9hH",
-        "category_item_3yBqPp",
-        "category_item_Y34xad",
-        "category_item_NE8JW6"
-      ],
-      "name": "Shop By",
-      "settings": {
-        "heading": "Shop Your Way",
-        "brand_view_all": "",
-        "car_view_all": "",
-        "category_view_all": ""
-      }
-    },
     "newsletter": {
       "type": "newsletter",
       "settings": {
@@ -261,7 +80,6 @@
     "our-story-2",
     "brand-strip",
     "featured-products",
-    "shop_by_NMmJtX",
     "newsletter"
   ]
 }
