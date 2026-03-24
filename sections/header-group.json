@@ -18,7 +18,8 @@
     "header": {
       "type": "header",
       "custom_css": [
-        ".site-header {border: 0;}"
+        ".site-header {border: 0;}",
+        ".site-header__inner {height: 6rem;}"
       ],
       "settings": {
         "menu": "main-menu",
