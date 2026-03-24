@@ -63,15 +63,6 @@
         "view_all_url": "/collections/all"
       }
     },
-    "newsletter": {
-      "type": "newsletter",
-      "settings": {
-        "heading": "Get the Latest Drops & Deals",
-        "subtext": "New product launches, build guides, and exclusive discounts for subscribers only.",
-        "placeholder": "your@email.com",
-        "button_label": "Subscribe"
-      }
-    },
     "shop_by_NMmJtX": {
       "type": "shop-by",
       "blocks": {
@@ -79,6 +70,7 @@
           "type": "brand",
           "settings": {
             "name": "KingWorX",
+            "logo": "shopify://shop_images/KingWorX_Cropped_to_Fit.png",
             "count": "Own brand",
             "link": ""
           }
@@ -86,8 +78,9 @@
         "brand_GGrFAN": {
           "type": "brand",
           "settings": {
-            "name": "Whiteline",
-            "count": "Suspension",
+            "name": "Aeroflow",
+            "logo": "shopify://shop_images/Aeroflow_Logo.png",
+            "count": "Performance Parts",
             "link": ""
           }
         },
@@ -250,6 +243,15 @@
         "car_view_all": "",
         "category_view_all": ""
       }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "heading": "Get the Latest Drops & Deals",
+        "subtext": "New product launches, build guides, and exclusive discounts for subscribers only.",
+        "placeholder": "your@email.com",
+        "button_label": "Subscribe"
+      }
     }
   },
   "order": [
@@ -258,7 +260,7 @@
     "our-story-2",
     "brand-strip",
     "featured-products",
-    "newsletter",
-    "shop_by_NMmJtX"
+    "shop_by_NMmJtX",
+    "newsletter"
   ]
 }
