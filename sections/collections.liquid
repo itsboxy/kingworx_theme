@@ -1,83 +1,296 @@
-{% comment %}
-  This section is used in the list-collections template to render a list of
-  collections.
+{% comment %} KingWorX — Collections List Page {% endcomment %}
 
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/collection
-{% endcomment %}
+<div class="cl-page full-width">
 
-<h1>{{ 'collections.title' | t }}</h1>
+  <!-- Page header -->
+  <div class="cl-header full-width">
+    <div class="cl-header__slash" aria-hidden="true"></div>
+    <div class="cl-header__inner">
+      <p class="cl-header__eyebrow">
+        <span class="cl-header__eyebrow-line"></span>
+        Browse
+      </p>
+      <h1 class="cl-header__title">Collections</h1>
+      <p class="cl-header__sub">Shop our range of precision-engineered performance parts for your build.</p>
+    </div>
+    <div class="cl-header__glow" aria-hidden="true"></div>
+  </div>
 
-<div
-  class="collections {{ section.settings.grid_item_width }}"
-  style="--grid-gap: {{ section.settings.grid_gap }}px"
->
-  {% for collection in collections %}
-    <a class="collection-card" href="{{ collection.url }}">
-      {% if collection.featured_image %}
-        {% render 'image',
-          class: 'collection-card__image',
-          image: collection.featured_image,
-          width: 600,
-          height: 600,
-          crop: 'center'
-        %}
-      {% endif %}
+  <!-- Grid -->
+  <div class="cl-wrap">
+    <div class="cl-grid">
+      {% for collection in collections %}
+        <a href="{{ collection.url }}" class="cl-card">
+          <div class="cl-card__media">
+            {% if collection.featured_image %}
+              {% render 'image',
+                class: 'cl-card__img',
+                image: collection.featured_image,
+                width: 800,
+                height: 600,
+                crop: 'center'
+              %}
+            {% else %}
+              <div class="cl-card__placeholder">
+                <svg viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M20 140 L60 70 L100 110 L135 55 L180 140Z" fill="#222" stroke="#c60000" stroke-width="1"/>
+                  <circle cx="158" cy="48" r="14" fill="#222" stroke="#c60000" stroke-width="1"/>
+                </svg>
+              </div>
+            {% endif %}
+            <div class="cl-card__overlay" aria-hidden="true"></div>
+            <div class="cl-card__arrow">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </div>
 
-      <div class="collection-card__content">
-        <p>{{ collection.title }}</p>
+          <div class="cl-card__body">
+            <div class="cl-card__accent" aria-hidden="true"></div>
+            <div class="cl-card__text">
+              <h2 class="cl-card__title">{{ collection.title }}</h2>
+              {% if collection.description != blank %}
+                <p class="cl-card__desc">{{ collection.description | strip_html | truncatewords: 18 }}</p>
+              {% endif %}
+            </div>
+            <div class="cl-card__cta">
+              <span>View Collection</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
 
-        {% if collection.description %}
-          <p>{{ collection.description | strip_html | truncatewords: 15 }}</p>
-        {% endif %}
-      </div>
-    </a>
-  {% endfor %}
 </div>
 
 {% stylesheet %}
-  .collections {
+
+  /* ── Page ── */
+  .cl-page {
+    background: var(--color-background);
+    min-height: 60vh;
+  }
+
+  /* ── Header ── */
+  .cl-header {
+    background: linear-gradient(135deg, #0a0a0a 0%, #110000 60%, #0a0000 100%);
+    position: relative;
+    overflow: hidden;
+    padding: 4rem var(--page-margin) 3.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .cl-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--color-brand) 20%, var(--color-brand) 80%, transparent);
+  }
+  .cl-header__glow {
+    position: absolute;
+    top: -40%;
+    right: -5%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(198,0,0,0.1) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .cl-header__slash {
+    position: absolute;
+    right: 12%;
+    top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, transparent, var(--color-brand) 40%, var(--color-brand) 60%, transparent);
+    transform: skewX(-12deg);
+    opacity: 0.3;
+  }
+  .cl-header__inner {
+    position: relative;
+    z-index: 2;
+    max-width: var(--page-width);
+    margin: 0 auto;
+  }
+  .cl-header__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-brand);
+    margin-bottom: 0.75rem;
+  }
+  .cl-header__eyebrow-line {
+    display: block;
+    width: 2rem;
+    height: 2px;
+    background: var(--color-brand);
+  }
+  .cl-header__title {
+    font-family: var(--font-heading--family);
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 900;
+    line-height: 1.0;
+    color: var(--color-foreground);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.75rem;
+  }
+  .cl-header__sub {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.5);
+    max-width: 50ch;
+    line-height: 1.6;
+  }
+
+  /* ── Grid wrap ── */
+  .cl-wrap {
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: var(--spacing-xl) var(--page-margin) var(--spacing-2xl);
+  }
+
+  .cl-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(var(--collection-card-size), 100%), 1fr));
-    gap: var(--grid-gap);
+    grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
+    gap: 1.5rem;
   }
-  .collections--compact {
-    --collection-card-size: 160px;
-  }
-  .collections--full {
-    --collection-card-size: 280px;
-  }
-  .collection-card {
+
+  /* ── Card ── */
+  .cl-card {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    overflow: hidden;
+    text-decoration: none;
+    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+    position: relative;
   }
+  .cl-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card-hover);
+    border-color: rgba(198,0,0,0.3);
+  }
+
+  /* Media */
+  .cl-card__media {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    background: var(--color-surface-2);
+    overflow: hidden;
+  }
+  .cl-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform var(--transition-slow);
+  }
+  .cl-card:hover .cl-card__img { transform: scale(1.06); }
+
+  .cl-card__placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cl-card__placeholder svg { width: 60%; height: auto; opacity: 0.5; }
+
+  .cl-card__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.7) 100%);
+    transition: opacity var(--transition-base);
+    opacity: 0.5;
+  }
+  .cl-card:hover .cl-card__overlay { opacity: 0.7; }
+
+  .cl-card__arrow {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 36px;
+    height: 36px;
+    background: var(--color-brand);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    opacity: 0;
+    transform: scale(0.7) rotate(-45deg);
+    transition: opacity var(--transition-base), transform var(--transition-base);
+    box-shadow: 0 4px 16px rgba(198,0,0,0.5);
+  }
+  .cl-card:hover .cl-card__arrow {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+
+  /* Body */
+  .cl-card__body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .cl-card__accent {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--color-brand);
+  }
+  .cl-card__text { flex: 1; min-width: 0; }
+  .cl-card__title {
+    font-family: var(--font-heading--family);
+    font-size: 1.1rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-foreground);
+    margin-bottom: 0.3rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .cl-card__desc {
+    font-size: 0.8rem;
+    color: var(--color-muted);
+    line-height: 1.5;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .cl-card__cta {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-heading--family);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-brand);
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: gap var(--transition-fast);
+  }
+  .cl-card:hover .cl-card__cta { gap: 0.65rem; }
+
 {% endstylesheet %}
 
 {% schema %}
 {
-  "name": "t:general.collections_grid",
-  "settings": [
-    {
-      "type": "select",
-      "id": "grid_item_width",
-      "label": "t:labels.grid_item_width",
-      "options": [
-        { "value": "collections--compact", "label": "t:options.size.small" },
-        { "value": "collections--full", "label": "t:options.size.large" }
-      ],
-      "default": "collections--full"
-    },
-    {
-      "type": "range",
-      "id": "grid_gap",
-      "label": "t:labels.grid_gap",
-      "min": 0,
-      "max": 50,
-      "step": 5,
-      "unit": "px",
-      "default": 10
-    }
-  ],
-  "presets": [{ "name": "t:general.collections_grid" }]
+  "name": "Collections",
+  "settings": [],
+  "presets": [{ "name": "Collections" }]
 }
 {% endschema %}
