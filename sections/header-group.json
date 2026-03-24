@@ -23,9 +23,9 @@
       ],
       "settings": {
         "menu": "main-menu",
-        "brand_menu": "",
+        "brand_menu": "shop-by-brand",
         "brand_view_all": "shopify://collections",
-        "car_menu": "",
+        "car_menu": "shop",
         "car_view_all": "",
         "category_menu": "",
         "category_view_all": "",
