@@ -346,8 +346,14 @@
 
     var btn = trigger.querySelector('button');
     var open = false;
+    var closeTimer = null;
+
+    function cancelClose() {
+      if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
+    }
 
     function openMega() {
+      cancelClose();
       open = true;
       menu.hidden = false;
       btn.setAttribute('aria-expanded', 'true');
@@ -356,18 +362,20 @@
     }
 
     function closeMega() {
-      open = false;
-      menu.classList.remove('is-open');
-      btn.setAttribute('aria-expanded', 'false');
-      trigger.classList.remove('is-active');
-      setTimeout(function() { if (!open) menu.hidden = true; }, 300);
+      closeTimer = setTimeout(function() {
+        open = false;
+        menu.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        trigger.classList.remove('is-active');
+        setTimeout(function() { if (!open) menu.hidden = true; }, 300);
+      }, 120);
     }
 
     trigger.addEventListener('mouseenter', openMega);
     trigger.addEventListener('mouseleave', function(e) {
       if (!menu.contains(e.relatedTarget)) closeMega();
     });
-    menu.addEventListener('mouseenter', function() { open = true; });
+    menu.addEventListener('mouseenter', function() { cancelClose(); open = true; });
     menu.addEventListener('mouseleave', function(e) {
       if (!trigger.contains(e.relatedTarget)) closeMega();
     });
@@ -386,8 +394,8 @@
 
   /* ── Header shell ── */
   .site-header {
-    background: rgba(8, 8, 8, 0.96);
-    border-bottom: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255, 255, 255, 0.97);
+    border-bottom: 1px solid #e8e8e8;
     position: relative;
     z-index: 200;
     -webkit-backdrop-filter: blur(20px);
@@ -450,7 +458,7 @@
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.72);
+    color: #444444;
     border-radius: 4px;
     transition: color var(--transition-fast), background var(--transition-fast);
     cursor: pointer;
@@ -472,8 +480,8 @@
   }
   .nav-item__link:hover,
   .nav-item__link.is-active {
-    color: #fff;
-    background: rgba(255,255,255,0.05);
+    color: #111;
+    background: rgba(0,0,0,0.04);
   }
   .nav-item__link:hover::after,
   .nav-item__link.is-active::after { transform: scaleX(1); }
@@ -576,8 +584,9 @@
   }
 
   /* Mega col */
-  .mega-col { padding: 0 2.5rem 0 0; }
+  .mega-col { padding: 0 2rem; }
   .mega-col:first-child { padding-left: 0; }
+  .mega-col:last-of-type { padding-right: 0; }
 
   .mega-col__header {
     display: flex;
@@ -698,8 +707,7 @@
 
   .mega-divider {
     width: 1px; align-self: stretch;
-    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.07) 20%, rgba(255,255,255,0.07) 80%, transparent);
-    margin: 0 2rem;
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.12) 15%, rgba(255,255,255,0.12) 85%, transparent);
   }
 
   /* Promo panel */
@@ -752,19 +760,19 @@
     display: flex; align-items: center; justify-content: center;
     width: 2.5rem; height: 2.5rem;
     background: none; border: none;
-    color: rgba(255,255,255,0.55);
+    color: #666666;
     cursor: pointer; border-radius: 6px;
     transition: color var(--transition-fast), background var(--transition-fast);
     position: relative;
   }
   .header-icon-btn svg { width: 1.2rem; height: 1.2rem; }
-  .header-icon-btn:hover { color: #fff; background: rgba(255,255,255,0.07); }
+  .header-icon-btn:hover { color: #111; background: rgba(0,0,0,0.06); }
 
   /* Cart button — slightly highlighted */
   .header-cart-btn {
-    background: rgba(198,0,0,0.1);
-    border: 1px solid rgba(198,0,0,0.2);
-    color: rgba(255,255,255,0.8);
+    background: rgba(198,0,0,0.08);
+    border: 1px solid rgba(198,0,0,0.25);
+    color: var(--color-brand);
   }
   .header-cart-btn:hover {
     background: var(--color-brand);
